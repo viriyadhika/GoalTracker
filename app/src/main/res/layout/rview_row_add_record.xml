@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    style="@style/recycler_view_row">
+
+    <androidx.cardview.widget.CardView
+        style="@style/recycler_view_card">
+
+        <LinearLayout
+            style="@style/recycler_view_layout_insidecard"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/rview_row_add_record_title"
+                style="@style/recycler_view_title"/>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/rview_row_add_record_valuetext"
+                    android:text="@string/rview_row_add_record_value"
+                    style="@style/recycler_view_content" />
+
+                <EditText
+                    android:id="@+id/rview_row_add_record_valueinput"
+                    style="@style/edit_text"
+                    android:autofillHints="@string/rview_row_add_record_inputhint" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </androidx.cardview.widget.CardView>
+
+
+
+
+</RelativeLayout>

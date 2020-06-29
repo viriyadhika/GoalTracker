@@ -22,7 +22,11 @@ public class Record {
     private double value;
 
     //TODO: To implement Record Class constructor
-    public Record() {}
+    public Record(int goalid, long date, double value) {
+        this.goalid = goalid;
+        this.date = date;
+        this.value = value;
+    }
 
     public int getId() {
         return id;

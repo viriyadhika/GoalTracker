@@ -15,33 +15,27 @@ import com.example.goaltracker.model.Goal;
 import java.util.List;
 
 
-public class GoalRecyclerViewAdapter extends RecyclerView.Adapter<GoalRecyclerViewAdapter.ViewHolder> {
+public abstract class GoalRViewAdapter extends RecyclerView.Adapter<GoalRViewAdapter.ViewHolder> {
 
     List<Goal> goalList;
     Context context;
 
-    public GoalRecyclerViewAdapter(Context context) {
+    public GoalRViewAdapter(Context context) {
         this.context = context;
     }
 
     @NonNull
     @Override
-    public GoalRecyclerViewAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.rview_row_main, parent, false);
-
-        return new ViewHolder(view, context);
-    }
+    public abstract GoalRViewAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType);
 
     @Override
-    public void onBindViewHolder(@NonNull GoalRecyclerViewAdapter.ViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull GoalRViewAdapter.ViewHolder holder, int position) {
         if (goalList != null) {
             Goal current = goalList.get(position);
             holder.goalNameTextView.setText(current.getGoal());
         } else {
-            holder.goalNameTextView.setText(R.string.no_goal_added);
+            holder.goalNameTextView.setText(R.string.rview_row_main_no_goal);
         }
-
     }
 
     @Override
@@ -58,15 +52,14 @@ public class GoalRecyclerViewAdapter extends RecyclerView.Adapter<GoalRecyclerVi
 
 
 
-    public class ViewHolder extends RecyclerView.ViewHolder {
+    protected static class ViewHolder extends RecyclerView.ViewHolder {
         public Context context;
         public TextView goalNameTextView;
 
-        public ViewHolder(@NonNull View itemView, Context context) {
+        public ViewHolder(@NonNull View itemView, Context context, TextView goalNameTextView) {
             super(itemView);
-
             this.context = context;
-            this.goalNameTextView = itemView.findViewById(R.id.rview_row_main_title);
+            this.goalNameTextView = goalNameTextView;
         }
     }
 }
