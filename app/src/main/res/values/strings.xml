@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">GoalTracker</string>
+
+    <string name="no_goal_added">No goal inserted. Start by adding a goal</string>
+</resources>
