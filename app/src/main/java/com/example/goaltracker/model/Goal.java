@@ -24,7 +24,10 @@ public class Goal {
     @ColumnInfo(name = Constants.GOAL_FREQUENCY_NAME)
     private String frequency;
 
-    public Goal(String goalName, boolean moreThanValue, double value, String frequency) {
+    @ColumnInfo(name = Constants.GOAL_DEFAULT_COLUMN_NAME)
+    private double defaultvalue;
+
+    public Goal(String goalName, boolean moreThanValue, double value, String frequency, double defaultvalue) {
         this.goalName = goalName;
         this.moreThanValue = moreThanValue;
         this.value = value;
@@ -69,5 +72,13 @@ public class Goal {
 
     public void setFrequency(String frequency) {
         this.frequency = frequency;
+    }
+
+    public double getDefaultvalue() {
+        return defaultvalue;
+    }
+
+    public void setDefaultvalue(double defaultvalue) {
+        this.defaultvalue = defaultvalue;
     }
 }

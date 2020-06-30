@@ -7,6 +7,7 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
+<!--    For Recycler View-->
     <style name="recycler_view_row">
         <item name="android:paddingHorizontal">6dp</item>
         <item name="android:paddingVertical">3dp</item>
@@ -22,12 +23,18 @@
         <item name="cardCornerRadius">4dp</item>
     </style>
 
+    <style name="recycler_view_layout_insidecard">
+        <item name="android:padding">12dp</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+    </style>
+
     <style name="recycler_view_title">
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:layout_alignParentStart">true</item>
         <item name="android:paddingBottom">12dp</item>
-        <item name="android:textSize">18sp</item>
+        <item name="android:textSize">@dimen/title_text</item>
         <item name="android:textStyle">bold</item>
     </style>
 
@@ -36,20 +43,49 @@
         <item name="android:layout_height">wrap_content</item>
         <item name="android:layout_alignParentStart">true</item>
         <item name="android:paddingTop">6dp</item>
-        <item name="android:textSize">14sp</item>
+        <item name="android:textSize">@dimen/content_text</item>
     </style>
 
-    <style name="recycler_view_layout_insidecard">
-        <item name="android:padding">12dp</item>
-        <item name="android:layout_width">match_parent</item>
-        <item name="android:layout_height">wrap_content</item>
 
+
+<!--    Dialog Box-->
+    <style name="dialog_content">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:paddingTop">6dp</item>
+        <item name="android:textSize">@dimen/content_text</item>
+        <item name="android:layout_weight">1</item>
+    </style>
+
+    <style name="dialog">
+        <item name="android:padding">12dp</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+    </style>
+
+    <style name="dialog_title">
+        <item name="android:padding">12dp</item>
+        <item name="android:textSize">@dimen/title_text</item>
+        <item name="android:layout_gravity">center_horizontal</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+
+
+<!--    Views Small Components-->
+    <style name="big_button">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">70dp</item>
+        <item name="android:layout_margin">10dp</item>
+        <item name="android:textSize">@dimen/title_text</item>
     </style>
 
     <style name="edit_text">
         <item name="android:layout_width">100dp</item>
         <item name="android:layout_height">wrap_content</item>
-        <item name="android:textSize">14sp</item>
+        <item name="android:textSize">@dimen/content_text</item>
     </style>
 
 

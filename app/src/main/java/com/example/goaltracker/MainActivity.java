@@ -7,6 +7,9 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
+import android.util.Log;
+import android.view.View;
+import android.widget.Button;
 
 import com.example.goaltracker.adapter.GoalRViewAdapter_Main;
 import com.example.goaltracker.model.Goal;
@@ -14,24 +17,34 @@ import com.example.goaltracker.model.GoalViewModel;
 
 import java.util.List;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity
+        implements AddGoalDialogFragment.AddGoalDialogListener {
 
     private static final String TAG = "Main Activity";
+    //Interact with Database
     private GoalViewModel goalViewModel;
 
+    //Recycler View Component
     private GoalRViewAdapter_Main goalRViewAdapter;
     private RecyclerView recyclerView;
+
+    //Three main buttons
+    private Button addGoal;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        setupRecyclerView();
+        //Setup Recycler View
+        recyclerView = findViewById(R.id.main_act_rview);
+        goalRViewAdapter = new GoalRViewAdapter_Main(this);
+        recyclerView.setAdapter(goalRViewAdapter);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
+        //Interact with Database
         goalViewModel = ViewModelProviders.of(this)
                 .get(GoalViewModel.class);
-
         goalViewModel.getAllGoal().observe(this, new Observer<List<Goal>>() {
             @Override
             public void onChanged(List<Goal> goals) {
@@ -39,20 +52,29 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        //Initiate 3 main buttons
+        addGoal = findViewById(R.id.activity_main_add_goal);
+        addGoal.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showAddGoalDialog();
+            }
+        });
 
-        goalViewModel.deleteAll();
-        Goal test = new Goal("Lose Friend", false, 2, "Monthly");
-        goalViewModel.insert(test);
-
-
+//        goalViewModel.deleteAll();
+//        Goal test = new Goal("Lose Friend", false, 2, "Monthly");
+//        goalViewModel.insert(test);
     }
 
-    private void setupRecyclerView() {
-        recyclerView = findViewById(R.id.main_act_rview);
-        goalRViewAdapter = new GoalRViewAdapter_Main(this);
-        recyclerView.setAdapter(goalRViewAdapter);
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+    private void showAddGoalDialog() {
+        AddGoalDialogFragment dialog = new AddGoalDialogFragment();
+        dialog.show(getSupportFragmentManager(), "AddGoalDialog");
     }
 
+    @Override
+    public void onClickAddGoalDialog(AddGoalDialogFragment dialog, Goal toAdd) {
+        goalViewModel.insert(toAdd);
+        dialog.dismiss();
+    }
 
 }

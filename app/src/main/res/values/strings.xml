@@ -1,9 +1,32 @@
 <resources>
     <string name="app_name">GoalTracker</string>
 
+<!--    Main Activity-->
     <string name="rview_row_main_no_goal">No goal inserted. Start by adding a goal</string>
 
+<!--    Add Record Activity-->
     <string name="rview_row_add_record_value">Value:</string>
     <string name="rview_row_add_record_inputhint">Insert Today Value</string>
+
+<!--    Add New Goal Dialog Box-->
+    <string name="dialog_add_new_goal_title">ADD A NEW GOAL</string>
+    <string name="dialog_add_new_goal_goalname">GOAL:</string>
+    <string name="dialog_add_new_goal_target">TARGET:</string>
+    <string name="dialog_add_new_goal_frequency">FREQUENCY:</string>
+    <string name="dialog_add_new_goal_default">DEFAULT FILL:</string>
+
+    <string name="dialog_add_new_goal_freq_daily">Daily</string>
+    <string name="dialog_add_new_goal_freq_weekly">Weekly</string>
+    <string name="dialog_add_new_goal_freq_monthly">Monthly</string>
+
+    <string-array name="dialog_add_new_goal_more_than">
+        <item>More Than</item>
+        <item>Less Than</item>
+    </string-array>
+
+
+<!--    For Small View Component-->
+    <string name="save_button">SAVE</string>
+
 
 </resources>
