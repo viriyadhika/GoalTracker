@@ -15,10 +15,11 @@
         <item name="android:layout_alignParentTop">true</item>
     </style>
 
-    <style name="recycler_view_card">
+    <style name="recycler_view_card" parent="CardView">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:layout_alignParentStart">true</item>
+        <item name="cardCornerRadius">4dp</item>
     </style>
 
     <style name="recycler_view_title">
@@ -42,10 +43,11 @@
         <item name="android:padding">12dp</item>
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>
+
     </style>
 
     <style name="edit_text">
-        <item name="android:layout_width">30dp</item>
+        <item name="android:layout_width">100dp</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:textSize">14sp</item>
     </style>

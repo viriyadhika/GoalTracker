@@ -1,7 +1,6 @@
 package com.example.goaltracker.adapter;
 
 import android.content.Context;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
@@ -32,7 +31,7 @@ public abstract class GoalRViewAdapter extends RecyclerView.Adapter<GoalRViewAda
     public void onBindViewHolder(@NonNull GoalRViewAdapter.ViewHolder holder, int position) {
         if (goalList != null) {
             Goal current = goalList.get(position);
-            holder.goalNameTextView.setText(current.getGoal());
+            holder.goalNameTextView.setText(current.getGoalName());
         } else {
             holder.goalNameTextView.setText(R.string.rview_row_main_no_goal);
         }

@@ -90,7 +90,7 @@ public class GoalRepository {
 
         @Override
         protected Void doInBackground(Goal... goals) {
-            asyncTaskDao.updateGoal(goals[0].getId(), goals[0].getGoal());
+            asyncTaskDao.updateGoal(goals[0].getId(), goals[0].getGoalName());
             return null;
         }
     }

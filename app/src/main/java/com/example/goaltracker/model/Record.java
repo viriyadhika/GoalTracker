@@ -21,7 +21,6 @@ public class Record {
     @ColumnInfo(name = Constants.REC_VALUE_COLUMN_NAME)
     private double value;
 
-    //TODO: To implement Record Class constructor
     public Record(int goalid, long date, double value) {
         this.goalid = goalid;
         this.date = date;

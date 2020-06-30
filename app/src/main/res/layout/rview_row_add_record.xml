@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     style="@style/recycler_view_row">
 
     <androidx.cardview.widget.CardView
@@ -12,7 +13,7 @@
 
             <TextView
                 android:id="@+id/rview_row_add_record_title"
-                style="@style/recycler_view_title"/>
+                style="@style/recycler_view_title" />
 
             <LinearLayout
                 android:layout_width="wrap_content"
@@ -21,12 +22,13 @@
 
                 <TextView
                     android:id="@+id/rview_row_add_record_valuetext"
-                    android:text="@string/rview_row_add_record_value"
-                    style="@style/recycler_view_content" />
+                    style="@style/recycler_view_content"
+                    android:text="@string/rview_row_add_record_value" />
 
                 <EditText
                     android:id="@+id/rview_row_add_record_valueinput"
                     style="@style/edit_text"
+
                     android:autofillHints="@string/rview_row_add_record_inputhint" />
 
             </LinearLayout>

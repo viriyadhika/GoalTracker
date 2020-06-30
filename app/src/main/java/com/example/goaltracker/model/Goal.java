@@ -13,10 +13,22 @@ public class Goal {
     private int id;
 
     @ColumnInfo(name = Constants.GOAL_NAME_COLUMN_NAME)
-    private String goal;
+    private String goalName;
 
-    public Goal(String goal) {
-        this.goal = goal;
+    @ColumnInfo(name = Constants.GOAL_TARGET_COLUMN_NAME)
+    private boolean moreThanValue;
+
+    @ColumnInfo(name = Constants.GOAL_VALUE_COLUMN_NAME)
+    private double value;
+
+    @ColumnInfo(name = Constants.GOAL_FREQUENCY_NAME)
+    private String frequency;
+
+    public Goal(String goalName, boolean moreThanValue, double value, String frequency) {
+        this.goalName = goalName;
+        this.moreThanValue = moreThanValue;
+        this.value = value;
+        this.frequency = frequency;
     }
 
     public int getId() {
@@ -27,12 +39,35 @@ public class Goal {
         this.id = id;
     }
 
-    public String getGoal() {
-        return goal;
+    public String getGoalName() {
+        return goalName;
     }
 
-    public void setGoal(String goal) {
-        this.goal = goal;
+    public void setGoalName(String goalName) {
+        this.goalName = goalName;
     }
 
+    public boolean isMoreThanValue() {
+        return moreThanValue;
+    }
+
+    public void setMoreThanValue(boolean moreThanValue) {
+        this.moreThanValue = moreThanValue;
+    }
+
+    public double getValue() {
+        return value;
+    }
+
+    public void setValue(double value) {
+        this.value = value;
+    }
+
+    public String getFrequency() {
+        return frequency;
+    }
+
+    public void setFrequency(String frequency) {
+        this.frequency = frequency;
+    }
 }

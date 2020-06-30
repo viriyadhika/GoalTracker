@@ -6,6 +6,9 @@ public class Constants {
     //Goal DB Constants
     public static final String GOAL_TABLE_NAME = "goal_table";
     public static final String GOAL_NAME_COLUMN_NAME = "goal_name_col";
+    public static final String GOAL_TARGET_COLUMN_NAME = "goal_target_col";
+    public static final String GOAL_VALUE_COLUMN_NAME = "goal_value_col";
+    public static final String GOAL_FREQUENCY_NAME = "goal_freq_col";
 
 
     //Record DB Constants
