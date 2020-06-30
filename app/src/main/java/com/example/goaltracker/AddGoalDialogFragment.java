@@ -5,6 +5,8 @@ import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Bundle;
+import android.provider.MediaStore;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.AdapterView;
@@ -27,7 +29,9 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-public class AddGoalDialogFragment extends DialogFragment {
+public class AddGoalDialogFragment extends DialogFragment implements View.OnClickListener {
+
+    public static final String TAG = "AddGoalDialogFragment";
 
     EditText goalName;
     private final List<String> MORE_THAN_OPTION = new ArrayList<String>(
@@ -46,6 +50,8 @@ public class AddGoalDialogFragment extends DialogFragment {
     EditText defaultval;
 
     Button saveButton;
+
+    AddGoalDialogListener listener;
 
     @NonNull
     @Override
@@ -82,26 +88,14 @@ public class AddGoalDialogFragment extends DialogFragment {
         //Set Up the 3 Frequency Radio Button
 
         daily = view.findViewById(R.id.dialog_add_new_goal_daily);
-        daily.setOnCheckedChangeListener(new RadioButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                assignfreq(Constants.DAILY);
-            }
-        });
+        daily.setOnClickListener(this);
+
         weekly = view.findViewById(R.id.dialog_add_new_goal_weekly);
-        weekly.setOnCheckedChangeListener(new RadioButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                assignfreq(Constants.WEEKLY);
-            }
-        });
+        weekly.setOnClickListener(this);
+
         monthly = view.findViewById(R.id.dialog_add_new_goal_monthly);
-        weekly.setOnCheckedChangeListener(new RadioButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                assignfreq(Constants.MONTHLY);
-            }
-        });
+        monthly.setOnClickListener(this);
+
 
         //Set Up Default
         defaultval = view.findViewById(R.id.dialog_add_new_goal_default);
@@ -123,6 +117,7 @@ public class AddGoalDialogFragment extends DialogFragment {
                     double val = Double.parseDouble(value.getText().toString());
                     String frequency = frequencySelection;
                     double defVal = Double.parseDouble(defaultval.getText().toString());
+                    //TODO: defVal is not saved
                     Goal toAdd = new Goal (glName, mrThan, val, frequency, defVal);
                     listener.onClickAddGoalDialog(AddGoalDialogFragment.this, toAdd);
                 } else {
@@ -141,11 +136,29 @@ public class AddGoalDialogFragment extends DialogFragment {
         frequencySelection = selection;
     }
 
+    @Override
+    public void onClick(View v) {
+
+        boolean checked = ((RadioButton) v).isChecked();
+
+        switch(v.getId()) {
+            case R.id.dialog_add_new_goal_daily:
+                if (checked) { assignfreq(Constants.DAILY); }
+                break;
+            case R.id.dialog_add_new_goal_weekly:
+                if (checked) { assignfreq(Constants.WEEKLY); }
+                break;
+            case R.id.dialog_add_new_goal_monthly:
+                if (checked) { assignfreq(Constants.MONTHLY); }
+                break;
+        }
+    }
+
     public interface AddGoalDialogListener {
         void onClickAddGoalDialog(AddGoalDialogFragment dialog, Goal toAdd);
     }
 
-    AddGoalDialogListener listener;
+
 
     @Override
     public void onAttach(@NonNull Context context) {
@@ -160,5 +173,6 @@ public class AddGoalDialogFragment extends DialogFragment {
         }
 
     }
+
 
 }

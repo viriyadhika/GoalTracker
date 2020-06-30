@@ -10,10 +10,12 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.RadioButton;
 
 import com.example.goaltracker.adapter.GoalRViewAdapter_Main;
 import com.example.goaltracker.model.Goal;
 import com.example.goaltracker.model.GoalViewModel;
+import com.example.goaltracker.util.Constants;
 
 import java.util.List;
 
@@ -49,6 +51,7 @@ public class MainActivity extends AppCompatActivity
             @Override
             public void onChanged(List<Goal> goals) {
                 goalRViewAdapter.setGoalList(goals);
+                Log.d(TAG, "onChanged: " + goals.get(0));
             }
         });
 
@@ -76,5 +79,7 @@ public class MainActivity extends AppCompatActivity
         goalViewModel.insert(toAdd);
         dialog.dismiss();
     }
+
+
 
 }

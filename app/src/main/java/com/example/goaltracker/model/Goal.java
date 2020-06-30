@@ -32,6 +32,7 @@ public class Goal {
         this.moreThanValue = moreThanValue;
         this.value = value;
         this.frequency = frequency;
+        this.defaultvalue = defaultvalue;
     }
 
     public int getId() {
@@ -80,5 +81,17 @@ public class Goal {
 
     public void setDefaultvalue(double defaultvalue) {
         this.defaultvalue = defaultvalue;
+    }
+
+    @Override
+    public String toString() {
+        return "Goal{" +
+                "id=" + id +
+                ", goalName='" + goalName + '\'' +
+                ", moreThanValue=" + moreThanValue +
+                ", value=" + value +
+                ", frequency='" + frequency + '\'' +
+                ", defaultvalue=" + defaultvalue +
+                '}';
     }
 }

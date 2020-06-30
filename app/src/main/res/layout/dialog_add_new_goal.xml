@@ -77,7 +77,8 @@
                 android:button="@null"
                 style="@style/dialog_content"
                 android:layout_width="wrap_content"
-                android:gravity="center_horizontal"/>
+                android:gravity="center_horizontal"
+                android:onClick="onRadioButtonClicked"/>
 
             <RadioButton
                 android:id="@+id/dialog_add_new_goal_weekly"
@@ -85,7 +86,8 @@
                 android:button="@null"
                 style="@style/dialog_content"
                 android:layout_width="wrap_content"
-                android:gravity="center_horizontal"/>
+                android:gravity="center_horizontal"
+                android:onClick="onRadioButtonClicked"/>
 
             <RadioButton
                 android:id="@+id/dialog_add_new_goal_monthly"
@@ -93,7 +95,8 @@
                 android:button="@null"
                 style="@style/dialog_content"
                 android:layout_width="wrap_content"
-                android:gravity="center_horizontal"/>
+                android:gravity="center_horizontal"
+                android:onClick="onRadioButtonClicked"/>
 
         </RadioGroup>
 
