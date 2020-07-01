@@ -6,8 +6,11 @@ import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.app.DatePickerDialog;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.widget.Button;
 
 import com.example.goaltracker.adapter.GoalRViewAdapter_AddRecord;
 import com.example.goaltracker.adapter.GoalRViewAdapter_Main;
@@ -27,6 +30,8 @@ public class AddRecordActivity extends AppCompatActivity {
     private GoalRViewAdapter_AddRecord goalRViewAdapter;
     private RecyclerView recyclerView;
 
+    private Button calendar;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -34,6 +39,7 @@ public class AddRecordActivity extends AppCompatActivity {
 
         setupRecyclerView();
 
+        //Setup goal viewmodel
         goalViewModel = ViewModelProviders.of(this)
                 .get(GoalViewModel.class);
         goalViewModel.getAllGoal().observe(this, new Observer<List<Goal>>() {
@@ -43,18 +49,30 @@ public class AddRecordActivity extends AppCompatActivity {
             }
         });
 
+        //Setup RecordViewModel
         recordViewModel = ViewModelProviders.of(this)
                 .get(RecordViewModel.class);
-
-        Record test = new Record(1, java.lang.System.currentTimeMillis(), 12.5) {};
-        recordViewModel.insert(test);
-
         recordViewModel.getAllRecord().observe(this, new Observer<List<Record>>() {
             @Override
             public void onChanged(List<Record> records) {
-                Log.d(TAG, "onChanged: " + records.get(0).getValue());
+//                Log.d(TAG, "onChanged: " + records.get(0).getValue());
             }
         });
+//        Record test = new Record(1, java.lang.System.currentTimeMillis(), 12.5) {};
+//        recordViewModel.insert(test);
+
+        //Setup Calendar Button
+        //TODO: Implement default is today date
+        final DatePickerDialog datePickerDialog = new DatePickerDialog(this);
+        calendar = findViewById(R.id.activity_add_record_calendar);
+        calendar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                datePickerDialog.show();
+            }
+        });
+
+
 
     }
 

@@ -16,6 +16,7 @@ import com.example.goaltracker.adapter.GoalRViewAdapter_Main;
 import com.example.goaltracker.model.Goal;
 import com.example.goaltracker.model.GoalViewModel;
 import com.example.goaltracker.util.Constants;
+import com.google.android.material.snackbar.Snackbar;
 
 import java.util.List;
 
@@ -51,7 +52,6 @@ public class MainActivity extends AppCompatActivity
             @Override
             public void onChanged(List<Goal> goals) {
                 goalRViewAdapter.setGoalList(goals);
-                Log.d(TAG, "onChanged: " + goals.get(0));
             }
         });
 
@@ -78,8 +78,8 @@ public class MainActivity extends AppCompatActivity
     public void onClickAddGoalDialog(AddGoalDialogFragment dialog, Goal toAdd) {
         goalViewModel.insert(toAdd);
         dialog.dismiss();
+        Snackbar.make(recyclerView, "Goal Saved", Snackbar.LENGTH_SHORT)
+                .show();
     }
-
-
 
 }

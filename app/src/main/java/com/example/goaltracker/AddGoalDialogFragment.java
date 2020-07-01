@@ -86,7 +86,7 @@ public class AddGoalDialogFragment extends DialogFragment implements View.OnClic
         value = view.findViewById(R.id.dialog_add_new_goal_value);
 
         //Set Up the 3 Frequency Radio Button
-
+        //TODO: Dive to pressing mechanism of the button
         daily = view.findViewById(R.id.dialog_add_new_goal_daily);
         daily.setOnClickListener(this);
 
@@ -96,7 +96,6 @@ public class AddGoalDialogFragment extends DialogFragment implements View.OnClic
         monthly = view.findViewById(R.id.dialog_add_new_goal_monthly);
         monthly.setOnClickListener(this);
 
-
         //Set Up Default
         defaultval = view.findViewById(R.id.dialog_add_new_goal_default);
 
@@ -105,19 +104,16 @@ public class AddGoalDialogFragment extends DialogFragment implements View.OnClic
         saveButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //TODO: Make a goal object
-                //TODO: Pass the result to onClickAddGoalDialog
                 if (goalName.getText() != null &&
                 moreThanSelection[0] != null &&
                 defaultval.getText() != null &&
                 frequencySelection != null &&
                 value.getText() != null) {
-                    String glName = goalName.getText().toString();
+                    String glName = goalName.getText().toString().trim();
                     boolean mrThan = moreThanSelection[0].equals(MORE_THAN_OPTION.get(0));
-                    double val = Double.parseDouble(value.getText().toString());
+                    double val = Double.parseDouble(value.getText().toString().trim());
                     String frequency = frequencySelection;
-                    double defVal = Double.parseDouble(defaultval.getText().toString());
-                    //TODO: defVal is not saved
+                    double defVal = Double.parseDouble(defaultval.getText().toString().trim());
                     Goal toAdd = new Goal (glName, mrThan, val, frequency, defVal);
                     listener.onClickAddGoalDialog(AddGoalDialogFragment.this, toAdd);
                 } else {

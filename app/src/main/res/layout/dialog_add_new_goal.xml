@@ -48,6 +48,7 @@
 
             <EditText
                 android:id="@+id/dialog_add_new_goal_value"
+                android:inputType="number"
                 style="@style/dialog_content" />
 
         </LinearLayout>
@@ -114,6 +115,7 @@
 
         <EditText
             android:id="@+id/dialog_add_new_goal_default"
+            android:inputType="number"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="2" />

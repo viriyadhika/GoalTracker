@@ -10,7 +10,8 @@ import com.example.goaltracker.model.Goal;
 import com.example.goaltracker.model.Record;
 import com.example.goaltracker.util.Constants;
 
-@Database(entities = {Goal.class, Record.class}, version = 3)
+//TODO: To implement the relational database
+@Database(entities = {Goal.class, Record.class}, version = 4)
 public abstract class GoalRoomDatabase extends RoomDatabase {
     public abstract GoalDao goalDao();
     public abstract RecordDao recordDao();

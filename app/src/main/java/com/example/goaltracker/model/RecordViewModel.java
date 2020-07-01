@@ -25,10 +25,12 @@ public class RecordViewModel extends AndroidViewModel {
 
     public void insert(Record record) {recordRepository.insert(record);}
 
+    //TODO: make delete return int
     public void delete(Record record) {recordRepository.delete(record);}
 
     public void deleteAll() {recordRepository.deleteAll();}
 
+    //TODO: make update return int
     public void update(Record record) {recordRepository.update(record);}
 
 }
