@@ -41,4 +41,5 @@ dependencies {
     annotationProcessor "android.arch.lifecycle:compiler:$rootProject.archLifecycleVersion"
     implementation 'com.android.support:recyclerview-v7:29.1.1'
 
+    implementation 'com.github.PhilJay:MPAndroidChart:v3.1.0'
 }

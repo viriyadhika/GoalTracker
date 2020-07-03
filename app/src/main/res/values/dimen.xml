@@ -8,5 +8,9 @@
     <dimen name="activity_main_bottom_bar_minus">-48dp</dimen>
 
 
+    <dimen name="activity_add_record_bottom_bar">48dp</dimen>
+    <dimen name="activity_add_record_bottom_bar_minus">-48dp</dimen>
+
+
 
 </resources>

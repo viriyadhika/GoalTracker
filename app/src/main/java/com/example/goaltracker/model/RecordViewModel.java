@@ -1,6 +1,7 @@
 package com.example.goaltracker.model;
 
 import android.app.Application;
+import android.util.Log;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
@@ -12,6 +13,7 @@ import java.util.List;
 
 public class RecordViewModel extends AndroidViewModel {
 
+    public static final String TAG = "Record View Model";
     public RecordRepository recordRepository;
     public LiveData<List<Record>> allRecord;
 
@@ -23,7 +25,10 @@ public class RecordViewModel extends AndroidViewModel {
 
     public LiveData<List<Record>> getAllRecord() {return allRecord;};
 
-    public void insert(Record record) {recordRepository.insert(record);}
+    public void insert(Record record) {
+        recordRepository.insert(record);
+
+    }
 
     //TODO: make delete return int
     public void delete(Record record) {recordRepository.delete(record);}

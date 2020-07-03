@@ -6,6 +6,7 @@ import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -15,7 +16,6 @@ import android.widget.RadioButton;
 import com.example.goaltracker.adapter.GoalRViewAdapter_Main;
 import com.example.goaltracker.model.Goal;
 import com.example.goaltracker.model.GoalViewModel;
-import com.example.goaltracker.util.Constants;
 import com.google.android.material.snackbar.Snackbar;
 
 import java.util.List;
@@ -33,6 +33,7 @@ public class MainActivity extends AppCompatActivity
 
     //Three main buttons
     private Button addGoal;
+    private Button addRecord;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,6 +64,17 @@ public class MainActivity extends AppCompatActivity
                 showAddGoalDialog();
             }
         });
+
+        addRecord = findViewById(R.id.activity_main_add_record);
+        addRecord.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //TODO: Implement wait for result
+                Intent intent = new Intent(MainActivity.this, AddRecordActivity.class);
+                startActivity(intent);
+            }
+        });
+
 
 //        goalViewModel.deleteAll();
 //        Goal test = new Goal("Lose Friend", false, 2, "Monthly");

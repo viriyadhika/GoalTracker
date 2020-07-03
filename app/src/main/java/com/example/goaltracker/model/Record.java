@@ -58,4 +58,14 @@ public class Record {
     public void setValue(double value) {
         this.value = value;
     }
+
+    @Override
+    public String toString() {
+        return "Record{" +
+                "id=" + id +
+                ", goalid=" + goalid +
+                ", date=" + date +
+                ", value=" + value +
+                '}';
+    }
 }

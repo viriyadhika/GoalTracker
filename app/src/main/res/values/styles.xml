@@ -82,11 +82,5 @@
         <item name="android:textSize">@dimen/title_text</item>
     </style>
 
-    <style name="edit_text">
-        <item name="android:layout_width">100dp</item>
-        <item name="android:layout_height">wrap_content</item>
-        <item name="android:textSize">@dimen/content_text</item>
-    </style>
-
 
 </resources>

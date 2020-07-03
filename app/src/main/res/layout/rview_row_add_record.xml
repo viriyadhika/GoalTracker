@@ -4,38 +4,34 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     style="@style/recycler_view_row">
 
-    <androidx.cardview.widget.CardView
-        style="@style/recycler_view_card">
+    <LinearLayout
+        style="@style/recycler_view_layout_insidecard"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/rview_row_add_record_title"
+            style="@style/recycler_view_title" />
 
         <LinearLayout
-            style="@style/recycler_view_layout_insidecard"
-            android:orientation="vertical">
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
 
             <TextView
-                android:id="@+id/rview_row_add_record_title"
-                style="@style/recycler_view_title" />
+                android:id="@+id/rview_row_add_record_valuetext"
+                style="@style/recycler_view_content"
+                android:text="@string/rview_row_add_record_value" />
 
-            <LinearLayout
-                android:layout_width="wrap_content"
+            <EditText
+                android:id="@+id/rview_row_add_record_valueinput"
+                android:layout_width="100dp"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal">
-
-                <TextView
-                    android:id="@+id/rview_row_add_record_valuetext"
-                    style="@style/recycler_view_content"
-                    android:text="@string/rview_row_add_record_value" />
-
-                <EditText
-                    android:id="@+id/rview_row_add_record_valueinput"
-                    style="@style/edit_text"
-
-                    android:autofillHints="@string/rview_row_add_record_inputhint" />
-
-            </LinearLayout>
+                android:textSize="@dimen/content_text"
+                android:autofillHints="@string/rview_row_add_record_inputhint" />
 
         </LinearLayout>
 
-    </androidx.cardview.widget.CardView>
+    </LinearLayout>
 
 
 
