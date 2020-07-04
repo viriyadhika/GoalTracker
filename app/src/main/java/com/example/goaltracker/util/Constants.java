@@ -22,6 +22,9 @@ public class Constants {
     public static final String WEEKLY = "weekly";
     public static final String MONTHLY = "monthly";
 
+    //Passing goalid from MainActivity -> StatisticsActivity
+    public static final String GOALID_NAME = "goalid";
+
 
 
 }

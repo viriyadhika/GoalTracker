@@ -49,7 +49,9 @@ public abstract class GoalRViewAdapter extends RecyclerView.Adapter<GoalRViewAda
         notifyDataSetChanged();
     }
 
-
+    public Goal getGoal(int position) {
+        return goalList.get(position);
+    }
 
     protected static class ViewHolder extends RecyclerView.ViewHolder {
         public Context context;

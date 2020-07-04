@@ -7,6 +7,7 @@
         style="@style/recycler_view_card">
 
         <RelativeLayout
+            android:id="@+id/rview_row_main_relative_layout"
             style="@style/recycler_view_layout_insidecard" >
 
             <TextView

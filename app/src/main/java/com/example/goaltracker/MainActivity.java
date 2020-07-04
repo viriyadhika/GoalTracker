@@ -16,6 +16,7 @@ import android.widget.RadioButton;
 import com.example.goaltracker.adapter.GoalRViewAdapter_Main;
 import com.example.goaltracker.model.Goal;
 import com.example.goaltracker.model.GoalViewModel;
+import com.example.goaltracker.util.Constants;
 import com.google.android.material.snackbar.Snackbar;
 
 import java.util.List;
@@ -43,6 +44,16 @@ public class MainActivity extends AppCompatActivity
         //Setup Recycler View
         recyclerView = findViewById(R.id.main_act_rview);
         goalRViewAdapter = new GoalRViewAdapter_Main(this);
+        goalRViewAdapter.setOnGoalClickListener(new GoalRViewAdapter_Main.OnGoalClickListener() {
+            @Override
+            public void onGoalClick(int position) {
+                Goal goal = goalRViewAdapter.getGoal(position);
+                //TODO:Implement wait for result
+                Intent intent = new Intent(MainActivity.this, StatisticsActivity.class);
+                intent.putExtra(Constants.GOALID_NAME, goal.getId());
+                startActivity(intent);
+            }
+        });
         recyclerView.setAdapter(goalRViewAdapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
