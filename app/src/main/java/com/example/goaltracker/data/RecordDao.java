@@ -29,7 +29,14 @@ public interface RecordDao {
             "WHERE id = :id")
     int updateRecord(int id, int goalid, long date, double value);
 
-    @Query("SELECT * FROM " + Constants.REC_TABLE_NAME + " ORDER BY " + Constants.REC_DATE_COLUMN_NAME + " DESC")
+    @Query("SELECT * FROM " + Constants.REC_TABLE_NAME + " ORDER BY " + Constants.REC_DATE_COLUMN_NAME + " ASC")
     LiveData<List<Record>> getAllRecord();
+
+    @Query("SELECT * FROM " + Constants.REC_TABLE_NAME
+            + " WHERE " + Constants.REC_GOAL_ID_COLUMN_NAME + "= :goalid" + " AND "
+            + Constants.REC_DATE_COLUMN_NAME + ">= :startDate" + " AND "
+            + Constants.REC_DATE_COLUMN_NAME + "<= :endDate"
+            + " ORDER BY " + Constants.REC_DATE_COLUMN_NAME + " ASC")
+    LiveData<List<Record>> getRecord(int goalid, long startDate, long endDate);
 
 }

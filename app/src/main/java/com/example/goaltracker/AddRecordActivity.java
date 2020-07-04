@@ -80,7 +80,7 @@ public class AddRecordActivity extends AppCompatActivity  {
 
         //Setup To Edit Text, prefill with today date
         calendarTo =findViewById(R.id.activity_add_record_to);
-        calendarTo.setText(DateTimeHandler.getCalendarTextNow());
+        calendarTo.setText(DateTimeHandler.getCalendarText(DateTimeHandler.NOW));
 
         //Setup To Calendar Button
         final DatePickerDialog datePickerDialogTo = new DatePickerDialog(this);
@@ -108,7 +108,7 @@ public class AddRecordActivity extends AppCompatActivity  {
 
         //Setup From Edit Text, prefill with today date
         calendarFrom =findViewById(R.id.activity_add_record_from);
-        calendarFrom.setText(DateTimeHandler.getCalendarTextNow());
+        calendarFrom.setText(DateTimeHandler.getCalendarText(DateTimeHandler.NOW));
 
         //Setup From Calendar Button
         //TODO: Implement to cannot be later than today, from cannot be after to
@@ -151,6 +151,11 @@ public class AddRecordActivity extends AppCompatActivity  {
     }
 
     //TODO: Implement to loop from "From" to "To" date
+    //TODO: Ensure no duplicate entry for the same goalId and same date
+
+    /**
+     * When saving the file, it only detect which goal is filled. Only those got filled will be input to database
+     */
     private void saveFile() {
         long startDate = DateTimeHandler.stringToLongDate(calendarFrom.getText().toString().trim());
         double value;

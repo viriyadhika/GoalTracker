@@ -86,10 +86,6 @@ public class MainActivity extends AppCompatActivity
             }
         });
 
-
-//        goalViewModel.deleteAll();
-//        Goal test = new Goal("Lose Friend", false, 2, "Monthly");
-//        goalViewModel.insert(test);
     }
 
     private void showAddGoalDialog() {

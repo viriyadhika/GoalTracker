@@ -25,10 +25,14 @@ public class RecordViewModel extends AndroidViewModel {
 
     public LiveData<List<Record>> getAllRecord() {return allRecord;};
 
+    public LiveData<List<Record>> getRecord (int id, long startDate, long endDate) {return recordRepository.getRecord(id, startDate, endDate);}
+
     public void insert(Record record) {
         recordRepository.insert(record);
 
     }
+
+
 
     //TODO: make delete return int
     public void delete(Record record) {recordRepository.delete(record);}
