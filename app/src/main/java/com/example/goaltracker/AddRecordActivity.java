@@ -16,6 +16,7 @@ import android.widget.EditText;
 
 import com.example.goaltracker.adapter.GoalRViewAdapter_AddRecord;
 
+import com.example.goaltracker.exception.DuplicateRecordException;
 import com.example.goaltracker.model.Goal;
 import com.example.goaltracker.model.GoalViewModel;
 import com.example.goaltracker.model.Record;
@@ -24,9 +25,6 @@ import com.example.goaltracker.util.DateTimeHandler;
 import com.google.android.material.snackbar.Snackbar;
 
 
-import java.text.MessageFormat;
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Map;
 
@@ -40,12 +38,10 @@ public class AddRecordActivity extends AppCompatActivity  {
     private GoalRViewAdapter_AddRecord goalRViewAdapter;
     private RecyclerView recyclerView;
 
-    private Button calendarFromButton;
-    private Button calendarToButton;
+    private Button calendarButton;
     private Button saveButton;
 
-    private EditText calendarFrom;
-    private EditText calendarTo;
+    private EditText calendarEditText;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -78,37 +74,9 @@ public class AddRecordActivity extends AppCompatActivity  {
             }
         });
 
-        //Setup To Edit Text, prefill with today date
-        calendarTo =findViewById(R.id.activity_add_record_to);
-        calendarTo.setText(DateTimeHandler.getCalendarText(DateTimeHandler.NOW));
-
-        //Setup To Calendar Button
-        final DatePickerDialog datePickerDialogTo = new DatePickerDialog(this);
-        datePickerDialogTo.setOnDateSetListener(new DatePickerDialog.OnDateSetListener() {
-            @Override
-            public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
-                //Plus one is because month start from 0
-                String datePicked = DateTimeHandler.getCalendarText(year, month + 1, dayOfMonth);
-                if (DateTimeHandler.afterNow(datePicked)) {
-                    Snackbar.make(recyclerView, "Cannot Pick Day after Today", Snackbar.LENGTH_SHORT)
-                            .show();
-                } else {
-                    calendarTo.setText(datePicked);
-                    calendarFrom.setText(datePicked);
-                }
-            }
-        });
-        calendarToButton = findViewById(R.id.activity_add_record_calendar_to);
-        calendarToButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                datePickerDialogTo.show();
-            }
-        });
-
         //Setup From Edit Text, prefill with today date
-        calendarFrom =findViewById(R.id.activity_add_record_from);
-        calendarFrom.setText(DateTimeHandler.getCalendarText(DateTimeHandler.NOW));
+        calendarEditText =findViewById(R.id.activity_add_record_from);
+        calendarEditText.setText(DateTimeHandler.getCalendarText(DateTimeHandler.NOW));
 
         //Setup From Calendar Button
         //TODO: Implement to cannot be later than today, from cannot be after to
@@ -124,12 +92,12 @@ public class AddRecordActivity extends AppCompatActivity  {
                     Snackbar.make(recyclerView, "Cannot Pick Day after Today", Snackbar.LENGTH_SHORT)
                             .show();
                 } else {
-                    calendarFrom.setText(datePicked);
+                    calendarEditText.setText(datePicked);
                 }
             }
         });
-        calendarFromButton = findViewById(R.id.activity_add_record_calendar_from);
-        calendarFromButton.setOnClickListener(new View.OnClickListener() {
+        calendarButton = findViewById(R.id.activity_add_record_calendar_from);
+        calendarButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 datePickerDialogFrom.show();
@@ -157,7 +125,7 @@ public class AddRecordActivity extends AppCompatActivity  {
      * When saving the file, it only detect which goal is filled. Only those got filled will be input to database
      */
     private void saveFile() {
-        long startDate = DateTimeHandler.stringToLongDate(calendarFrom.getText().toString().trim());
+        long startDate = DateTimeHandler.stringToLongDate(calendarEditText.getText().toString().trim());
         double value;
         Record record;
         Goal goal;
@@ -168,7 +136,12 @@ public class AddRecordActivity extends AppCompatActivity  {
                 value = entry.getValue();
                 record = new Record(goal.getId(), startDate, value);
                 Log.d(TAG, "saveFile: " + record);
-                recordViewModel.insert(record);
+                try {
+                    recordViewModel.insert(record);
+                } catch (DuplicateRecordException e) {
+                    Snackbar.make(recyclerView, "Duplicate Record Found!", Snackbar.LENGTH_SHORT)
+                            .show();
+                }
             }
         }
 

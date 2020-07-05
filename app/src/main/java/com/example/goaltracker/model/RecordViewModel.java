@@ -6,7 +6,9 @@ import android.util.Log;
 import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
+import androidx.lifecycle.Observer;
 
+import com.example.goaltracker.exception.DuplicateRecordException;
 import com.example.goaltracker.util.RecordRepository;
 
 import java.util.List;
@@ -27,9 +29,17 @@ public class RecordViewModel extends AndroidViewModel {
 
     public LiveData<List<Record>> getRecord (int id, long startDate, long endDate) {return recordRepository.getRecord(id, startDate, endDate);}
 
-    public void insert(Record record) {
-        recordRepository.insert(record);
+    public LiveData<List<Record>> getRecord (int id) {return recordRepository.getRecord(id); }
 
+    public void insert(Record toAdd) throws DuplicateRecordException {
+        if (recordRepository.getAllRecord().getValue() != null) {
+            for (Record record : recordRepository.getAllRecord().getValue()) {
+                if (record.getDate() == toAdd.getDate() && record.getGoalid() == toAdd.getGoalid()) {
+                    throw new DuplicateRecordException();
+                }
+            }
+            recordRepository.insert(toAdd);
+        }
     }
 
 

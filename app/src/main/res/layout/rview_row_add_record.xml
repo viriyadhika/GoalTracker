@@ -20,7 +20,7 @@
             <TextView
                 android:id="@+id/rview_row_add_record_valuetext"
                 style="@style/recycler_view_content"
-                android:text="@string/rview_row_add_record_value" />
+                android:text="@string/rview_row_add_view_record_value" />
 
             <EditText
                 android:id="@+id/rview_row_add_record_valueinput"

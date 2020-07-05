@@ -1,13 +1,15 @@
 package com.example.goaltracker;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.res.ResourcesCompat;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
+import android.view.View;
+import android.widget.Button;
 
 import com.example.goaltracker.model.Goal;
 import com.example.goaltracker.model.GoalViewModel;
@@ -18,13 +20,13 @@ import com.example.goaltracker.util.DateTimeHandler;
 import com.github.mikephil.charting.charts.BarChart;
 import com.github.mikephil.charting.components.AxisBase;
 import com.github.mikephil.charting.components.XAxis;
+import com.github.mikephil.charting.components.YAxis;
 import com.github.mikephil.charting.data.BarData;
 import com.github.mikephil.charting.data.BarDataSet;
 import com.github.mikephil.charting.data.BarEntry;
 import com.github.mikephil.charting.formatter.ValueFormatter;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 public class StatisticsActivity extends AppCompatActivity {
@@ -35,6 +37,8 @@ public class StatisticsActivity extends AppCompatActivity {
 
     GoalViewModel goalViewModel;
     RecordViewModel recordViewModel;
+
+    Button viewButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,11 +67,21 @@ public class StatisticsActivity extends AppCompatActivity {
         //Get the extras passed from prev's activity
         Bundle extras = getIntent().getExtras();
         assert extras != null : TAG + ": No extras found from Intent";
-        int goalid = extras.getInt(Constants.GOALID_NAME);
-        getPastWeek(goalid).observe(this, new Observer<List<Record>>() {
+        final int goalid = extras.getInt(Constants.GOALID_NAME);
+        getPastWeekRecords(goalid).observe(this, new Observer<List<Record>>() {
             @Override
             public void onChanged(List<Record> records) {
                 displayChart(records);
+            }
+        });
+
+        Button viewButton = findViewById(R.id.activity_statistics_view_button);
+        viewButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(StatisticsActivity.this, ViewRecordActivity.class);
+                intent.putExtra(Constants.GOALID_NAME, goalid);
+                startActivity(intent);
             }
         });
 
@@ -102,20 +116,35 @@ public class StatisticsActivity extends AppCompatActivity {
         BarDataSet dataSet = new BarDataSet(entries, "a Label");
         BarData barData = new BarData(dataSet);
         barData.setBarWidth(0.9f);
+        barData.setValueTextSize(10f);
+
 
         XAxis xAxis = chart.getXAxis();
         xAxis.setGranularity(1f); // minimum axis-step (interval) is 1
         xAxis.setValueFormatter(formatter);
         xAxis.setAxisMinimum(-0.5f);
         xAxis.setAxisMaximum((float) (DATA_DISPLAYED_WEEKLY - 0.5));
+        xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
+        xAxis.setDrawGridLines(false);
+        xAxis.setTypeface(ResourcesCompat.getFont(this, R.font.roboto));
+
+        YAxis right = chart.getAxisRight();
+        right.setEnabled(false);
+
+        YAxis left = chart.getAxisLeft();
+        left.setTypeface(ResourcesCompat.getFont(this, R.font.roboto));
+        left.setPosition(YAxis.YAxisLabelPosition.OUTSIDE_CHART);
+        left.setDrawGridLines(false);
+        left.setAxisMinimum(0f);
 
         chart.setData(barData);
         chart.setTouchEnabled(false);
+        chart.getDescription().setEnabled(false);
         chart.invalidate();
 
     }
 
-    private LiveData<List<Record>> getPastWeek(int id) {
+    private LiveData<List<Record>> getPastWeekRecords(int id) {
         return recordViewModel.getRecord(id,
                 DateTimeHandler.getCalendarLong(DateTimeHandler.LAST_WEEK),
                 DateTimeHandler.getCalendarLong(DateTimeHandler.NOW));

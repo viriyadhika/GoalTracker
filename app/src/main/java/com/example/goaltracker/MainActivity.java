@@ -115,7 +115,6 @@ public class MainActivity extends AppCompatActivity
     private void showUpdateGoalDialog(Goal goal) {
         UpdateGoalDialogFragment dialog = new UpdateGoalDialogFragment();
 
-
         Bundle args = new Bundle();
 
         args.putInt(Constants.GOAL_ID_COLUMN_NAME, goal.getId());

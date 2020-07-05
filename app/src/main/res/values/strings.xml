@@ -3,9 +3,10 @@
 
     <!--    Main Activity-->
     <string name="rview_row_main_no_goal">No goal inserted. Start by adding a goal</string>
+    <string name="rview_row_main_no_record">No record inserted. Start by adding a record</string>
 
-    <!--    Add Record Activity-->
-    <string name="rview_row_add_record_value">Value:</string>
+    <!--    Add and View Record Activity-->
+    <string name="rview_row_add_view_record_value">Value: </string>
     <string name="rview_row_add_record_inputhint">Insert Today Value</string>
 
     <!--    Add New Goal Dialog Box-->
@@ -20,18 +21,13 @@
     <string name="dialog_add_new_goal_freq_monthly">Monthly</string>
 
 
-    <string-array name="dialog_add_new_goal_more_than">
-        <item>More Than</item>
-        <item>Less Than</item>
-    </string-array>
-
-
     <!--    For Small View Component-->
     <string name="save_button">SAVE</string>
 
     <!--    Activity_add_record-->
-    <string name="activity_add_record_from">From</string>
-    <string name="activity_add_record_to">To</string>
+    <string name="activity_add_record_date">Date</string>
 
+<!--    Activity_statistics-->
+    <string name="activity_statistics_view_button">View All Records</string>
 
 </resources>

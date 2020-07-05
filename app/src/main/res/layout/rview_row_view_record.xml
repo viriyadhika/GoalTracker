@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    style="@style/recycler_view_row">
+
+    <androidx.cardview.widget.CardView
+        style="@style/recycler_view_card">
+
+        <RelativeLayout
+            style="@style/recycler_view_layout_insidecard" >
+
+            <TextView
+                android:id="@+id/rview_row_view_record_date"
+                android:layout_alignParentStart="true"
+                style="@style/recycler_view_title" />
+
+            <TextView
+                android:id="@+id/rview_row_view_record_valueText"
+                android:layout_below="@id/rview_row_view_record_date"
+                android:text="@string/rview_row_add_view_record_value"
+                style="@style/recycler_view_content" />
+
+            <TextView
+                android:id="@+id/rview_row_view_record_value"
+                style="@style/recycler_view_content"
+                android:layout_alignBottom="@id/rview_row_view_record_valueText"
+                android:layout_toEndOf="@id/rview_row_view_record_valueText" />
+
+        </RelativeLayout>
+
+
+    </androidx.cardview.widget.CardView>
+
+
+
+</RelativeLayout>

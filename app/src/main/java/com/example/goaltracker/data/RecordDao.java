@@ -39,4 +39,9 @@ public interface RecordDao {
             + " ORDER BY " + Constants.REC_DATE_COLUMN_NAME + " ASC")
     LiveData<List<Record>> getRecord(int goalid, long startDate, long endDate);
 
+    @Query("SELECT * FROM " + Constants.REC_TABLE_NAME
+            + " WHERE " + Constants.REC_GOAL_ID_COLUMN_NAME + "= :goalid"
+            + " ORDER BY " + Constants.REC_DATE_COLUMN_NAME + " DESC")
+    LiveData<List<Record>> getRecord(int goalid);
+
 }
