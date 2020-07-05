@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <dimen name="title_text">20sp</dimen>
+    <dimen name="title_text">25sp</dimen>
     <dimen name="content_text">16sp</dimen>
 
     <dimen name="activity_main_bottom_bar">48dp</dimen>
@@ -11,6 +11,11 @@
     <dimen name="activity_add_record_bottom_bar">48dp</dimen>
     <dimen name="activity_add_record_bottom_bar_minus">-48dp</dimen>
 
+    <dimen name="rview_row_main_accent_width">5dp</dimen>
 
+    <dimen name="stroke_width">2dp</dimen>
+
+    <dimen name="activity_padding_Top">5dp</dimen>
+    <dimen name="activity_padding_Horizontal">3dp</dimen>
 
 </resources>

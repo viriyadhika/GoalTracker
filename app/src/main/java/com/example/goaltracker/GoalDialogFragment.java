@@ -32,8 +32,6 @@ public class GoalDialogFragment extends DialogFragment implements View.OnClickLi
     View view;
 
     EditText goalName;
-    protected final List<String> MORE_THAN_OPTION = new ArrayList<String>(
-            Arrays.asList("More Than", "Less Than"));
 
     Spinner moreThan;
     final String[] moreThanSelection = new String[1];
@@ -66,7 +64,7 @@ public class GoalDialogFragment extends DialogFragment implements View.OnClickLi
         moreThan = view.findViewById(R.id.dialog_add_new_goal_morethan);
         ArrayAdapter<String> adapter = new ArrayAdapter<>(getActivity(),
                 R.layout.support_simple_spinner_dropdown_item,
-                MORE_THAN_OPTION);
+                Constants.MORE_THAN_OPTION);
         moreThan.setAdapter(adapter);
 
         moreThan.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -98,8 +96,6 @@ public class GoalDialogFragment extends DialogFragment implements View.OnClickLi
         //Set Up Default
         defaultval = view.findViewById(R.id.dialog_add_new_goal_default);
 
-
-
         builder.setView(view);
 
         return builder.create();
@@ -117,7 +113,7 @@ public class GoalDialogFragment extends DialogFragment implements View.OnClickLi
                         frequencySelection != null &&
                         value.getText() != null) {
                     String glName = goalName.getText().toString().trim();
-                    boolean mrThan = moreThanSelection[0].equals(MORE_THAN_OPTION.get(0));
+                    boolean mrThan = moreThanSelection[0].equals(Constants.MORE_THAN_OPTION.get(0));
                     double val = Double.parseDouble(value.getText().toString().trim());
                     String frequency = frequencySelection;
                     double defVal = Double.parseDouble(defaultval.getText().toString().trim());

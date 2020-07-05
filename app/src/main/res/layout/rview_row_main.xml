@@ -6,6 +6,11 @@
     <androidx.cardview.widget.CardView
         style="@style/recycler_view_card">
 
+        <FrameLayout
+            android:background="@color/colorAccent"
+            android:layout_width="@dimen/rview_row_main_accent_width"
+            android:layout_height="match_parent" />
+
         <RelativeLayout
             android:id="@+id/rview_row_main_relative_layout"
             style="@style/recycler_view_layout_insidecard" >
@@ -13,6 +18,11 @@
             <TextView
                 android:id="@+id/rview_row_main_title"
                 style="@style/recycler_view_title"/>
+
+            <TextView
+                android:id="@+id/rview_row_main_target"
+                android:layout_below="@id/rview_row_main_title"
+                style="@style/recycler_view_content" />
 
             <ImageButton
                 android:id="@+id/rview_row_main_update"

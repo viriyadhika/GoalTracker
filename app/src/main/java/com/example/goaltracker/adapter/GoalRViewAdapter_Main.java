@@ -15,6 +15,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.goaltracker.R;
+import com.example.goaltracker.util.Constants;
 
 public class GoalRViewAdapter_Main extends GoalRViewAdapter {
     public static final String TAG = "GoalRViewAdapter_Main";
@@ -68,6 +69,20 @@ public class GoalRViewAdapter_Main extends GoalRViewAdapter {
             }
         });
 
+        String moreThanValue;
+        if (goalList.get(position).isMoreThanValue()) {
+            moreThanValue = Constants.MORE_THAN_OPTION.get(0);
+        } else {
+            moreThanValue = Constants.MORE_THAN_OPTION.get(1);
+        }
+
+        castedHolder.targetText.setText(String.valueOf(
+                "Target: "
+                + moreThanValue + " "
+                + goalList.get(position).getValue() + " "
+                + goalList.get(position).getFrequency()
+        ));
+
     }
 
     public interface OnEditClickListener{
@@ -98,12 +113,14 @@ public class GoalRViewAdapter_Main extends GoalRViewAdapter {
 
         public ImageButton deleteButton;
         public ImageButton editButton;
+        public TextView targetText;
 
         //TODO: Implement update and delete items
         public ViewHolder(@NonNull View itemView, Context context) {
             super(itemView, context, (TextView) itemView.findViewById(R.id.rview_row_main_title));
             deleteButton = itemView.findViewById(R.id.rview_row_main_delete);
             editButton = itemView.findViewById(R.id.rview_row_main_update);
+            targetText = itemView.findViewById(R.id.rview_row_main_target);
         }
 
     }

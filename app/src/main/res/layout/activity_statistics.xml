@@ -4,6 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical"
     android:layout_width="match_parent"
+    android:paddingTop="@dimen/activity_padding_Top"
+    android:paddingHorizontal="@dimen/activity_padding_Horizontal"
     android:layout_height="match_parent"
     tools:context=".StatisticsActivity"
     android:weightSum="10"

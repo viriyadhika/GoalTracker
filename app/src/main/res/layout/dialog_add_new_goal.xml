@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:layout_width="match_parent"
     style="@style/dialog">
@@ -8,7 +9,7 @@
     <TextView
         android:id="@+id/dialog_add_new_goal_title"
         style="@style/dialog_title"
-        android:text="@string/dialog_add_new_goal_title"/>
+        android:text="@string/dialog_add_new_goal_title" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -21,8 +22,7 @@
 
         <EditText
             android:id="@+id/dialog_add_new_goal_goalname"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            style="@style/edit_text"
             android:layout_weight="2" />
 
     </LinearLayout>
@@ -30,7 +30,8 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:gravity="center_vertical">
+        android:orientation="horizontal"
+        android:gravity="center_vertical" >
 
         <TextView
             android:text="@string/dialog_add_new_goal_target"
@@ -41,16 +42,18 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:layout_weight="2">
+            android:layout_weight="2" >
 
             <Spinner
                 android:id="@+id/dialog_add_new_goal_morethan"
-                style="@style/dialog_content" />
+                style="@style/dialog_content"
+                android:layout_weight="2"/>
 
             <EditText
                 android:id="@+id/dialog_add_new_goal_value"
                 android:inputType="numberDecimal"
-                style="@style/dialog_content" />
+                style="@style/edit_text"
+                android:layout_weight="1" />
 
         </LinearLayout>
 
@@ -77,28 +80,31 @@
                 android:id="@+id/dialog_add_new_goal_daily"
                 android:text="@string/dialog_add_new_goal_freq_daily"
                 android:button="@null"
+                android:background="@drawable/radio_button_selector"
                 style="@style/dialog_content"
+                android:layout_weight="1"
                 android:layout_width="wrap_content"
-                android:gravity="center_horizontal"
-                android:onClick="onRadioButtonClicked"/>
+                android:gravity="center_horizontal" />
 
             <RadioButton
                 android:id="@+id/dialog_add_new_goal_weekly"
                 android:text="@string/dialog_add_new_goal_freq_weekly"
                 android:button="@null"
+                android:background="@drawable/radio_button_selector"
                 style="@style/dialog_content"
+                android:layout_weight="1"
                 android:layout_width="wrap_content"
-                android:gravity="center_horizontal"
-                android:onClick="onRadioButtonClicked"/>
+                android:gravity="center_horizontal" />
 
             <RadioButton
                 android:id="@+id/dialog_add_new_goal_monthly"
                 android:text="@string/dialog_add_new_goal_freq_monthly"
                 android:button="@null"
+                android:background="@drawable/radio_button_selector"
                 style="@style/dialog_content"
+                android:layout_weight="1"
                 android:layout_width="wrap_content"
-                android:gravity="center_horizontal"
-                android:onClick="onRadioButtonClicked"/>
+                android:gravity="center_horizontal" />
 
         </RadioGroup>
 
@@ -117,15 +123,16 @@
         <EditText
             android:id="@+id/dialog_add_new_goal_default"
             android:inputType="numberDecimal"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            style="@style/edit_text"
             android:layout_weight="2" />
 
     </LinearLayout>
 
     <Button
         android:id="@+id/dialog_add_new_goal_saveButton"
-        android:text="@string/save_button"
-        style="@style/big_button" />
+        style="@style/save_button"
+        android:background="@android:color/transparent"
+        android:layout_gravity="end"
+        android:text="@string/save_button" />
 
 </LinearLayout>

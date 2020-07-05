@@ -1,5 +1,9 @@
 package com.example.goaltracker.util;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
 public class Constants {
     public static final String DATABASE_NAME = "app_db";
 
@@ -26,6 +30,7 @@ public class Constants {
     //Passing goalid from MainActivity -> StatisticsActivity
     public static final String GOALID_NAME = "goalid";
 
-
+    public static final List<String> MORE_THAN_OPTION = new ArrayList<String>(
+            Arrays.asList("More than", "Less than"));
 
 }

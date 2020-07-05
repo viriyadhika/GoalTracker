@@ -7,16 +7,37 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
+    <style name="app_content_text" parent="TextAppearance.AppCompat">
+        <item name="android:textSize">@dimen/content_text</item>
+        <item name="android:textColor">@color/colorPrimaryDark</item>
+        <item name="fontFamily">@font/roboto</item>
+    </style>
+
+    <style name="app_heading2_text" parent="TextAppearance.AppCompat" >
+        <item name="android:textSize">@dimen/content_text</item>
+        <item name="android:textColor">@color/colorPrimaryDark</item>
+        <item name="android:textStyle">bold</item>
+        <item name="fontFamily">@font/roboto</item>
+    </style>
+
+    <style name="app_heading1_text" parent="TextAppearance.AppCompat" >
+        <item name="android:textSize">@dimen/title_text</item>
+        <item name="android:textColor">@color/colorPrimaryDark</item>
+        <item name="android:textStyle">bold</item>
+        <item name="fontFamily">@font/open_sans_extrabold</item>
+    </style>
+
 <!--    For Recycler View-->
     <style name="recycler_view_row">
         <item name="android:paddingHorizontal">6dp</item>
-        <item name="android:paddingVertical">3dp</item>
+        <item name="android:paddingVertical">5dp</item>
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:layout_alignParentTop">true</item>
     </style>
 
     <style name="recycler_view_card" parent="CardView">
+        <item name="elevation">200dp</item>
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:layout_alignParentStart">true</item>
@@ -34,27 +55,26 @@
         <item name="android:layout_height">wrap_content</item>
         <item name="android:layout_alignParentStart">true</item>
         <item name="android:paddingBottom">12dp</item>
-        <item name="android:textSize">@dimen/title_text</item>
-        <item name="android:textStyle">bold</item>
+        <item name="android:textAppearance">@style/app_heading1_text</item>
     </style>
 
     <style name="recycler_view_content">
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:layout_alignParentStart">true</item>
-        <item name="android:paddingTop">6dp</item>
-        <item name="android:textSize">@dimen/content_text</item>
+        <item name="android:paddingVertical">3dp</item>
+        <item name="android:textAppearance">@style/app_content_text</item>
     </style>
 
 
 
 <!--    Dialog Box-->
+
     <style name="dialog_content">
         <item name="android:layout_width">0dp</item>
         <item name="android:layout_height">wrap_content</item>
-        <item name="android:paddingTop">6dp</item>
-        <item name="android:textSize">@dimen/content_text</item>
-        <item name="android:layout_weight">1</item>
+        <item name="android:paddingVertical">3dp</item>
+        <item name="android:textAppearance">@style/app_content_text</item>
     </style>
 
     <style name="dialog">
@@ -65,21 +85,27 @@
 
     <style name="dialog_title">
         <item name="android:padding">12dp</item>
-        <item name="android:textSize">@dimen/title_text</item>
         <item name="android:layout_gravity">center_horizontal</item>
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
-        <item name="android:textStyle">bold</item>
+        <item name="android:textAppearance">@style/app_heading1_text</item>
     </style>
 
 
 
 <!--    Views Small Components-->
-    <style name="big_button">
-        <item name="android:layout_width">match_parent</item>
-        <item name="android:layout_height">70dp</item>
-        <item name="android:layout_margin">10dp</item>
-        <item name="android:textSize">@dimen/title_text</item>
+
+    <style name="save_button">
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:textAppearance">@style/app_content_text</item>
+        <item name="android:textColor">@color/colorAccent</item>
+    </style>
+
+    <style name="edit_text" parent="Widget.AppCompat.EditText">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textAppearance">@style/app_content_text</item>
     </style>
 
 
