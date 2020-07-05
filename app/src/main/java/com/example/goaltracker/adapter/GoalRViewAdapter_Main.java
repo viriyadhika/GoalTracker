@@ -2,10 +2,12 @@ package com.example.goaltracker.adapter;
 
 import android.content.Context;
 import android.content.Intent;
+import android.media.Image;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -18,6 +20,8 @@ public class GoalRViewAdapter_Main extends GoalRViewAdapter {
     public static final String TAG = "GoalRViewAdapter_Main";
 
     private OnGoalClickListener onGoalClickListener;
+    private OnDeleteClickListener onDeleteClickListener;
+    private OnEditClickListener onEditClickListener;
 
     public GoalRViewAdapter_Main(Context context) {
         super(context);
@@ -35,6 +39,8 @@ public class GoalRViewAdapter_Main extends GoalRViewAdapter {
     @Override
     public void onBindViewHolder(@NonNull GoalRViewAdapter.ViewHolder holder, final int position) {
         super.onBindViewHolder(holder, position);
+        GoalRViewAdapter_Main.ViewHolder castedHolder = (GoalRViewAdapter_Main.ViewHolder) holder;
+
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -43,6 +49,41 @@ public class GoalRViewAdapter_Main extends GoalRViewAdapter {
                 }
             }
         });
+
+        castedHolder.deleteButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (onDeleteClickListener != null) {
+                    onDeleteClickListener.onDeleteClick(position);
+                }
+            }
+        });
+
+        castedHolder.editButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (onEditClickListener != null) {
+                    onEditClickListener.onEditClick(position);
+                }
+            }
+        });
+
+    }
+
+    public interface OnEditClickListener{
+        void onEditClick(int position);
+    }
+
+    public void setOnEditClickListener(OnEditClickListener onEditClickListener) {
+        this.onEditClickListener = onEditClickListener;
+    }
+
+    public interface OnDeleteClickListener {
+        void onDeleteClick(int position);
+    }
+
+    public void setOnDeleteClickListener (OnDeleteClickListener onDeleteClickListener) {
+        this.onDeleteClickListener = onDeleteClickListener;
     }
 
     public interface OnGoalClickListener {
@@ -55,8 +96,14 @@ public class GoalRViewAdapter_Main extends GoalRViewAdapter {
 
     private static class ViewHolder extends GoalRViewAdapter.ViewHolder {
 
+        public ImageButton deleteButton;
+        public ImageButton editButton;
+
+        //TODO: Implement update and delete items
         public ViewHolder(@NonNull View itemView, Context context) {
             super(itemView, context, (TextView) itemView.findViewById(R.id.rview_row_main_title));
+            deleteButton = itemView.findViewById(R.id.rview_row_main_delete);
+            editButton = itemView.findViewById(R.id.rview_row_main_update);
         }
 
     }

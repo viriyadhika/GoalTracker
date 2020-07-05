@@ -9,6 +9,8 @@
     android:weightSum="10"
     android:gravity="center_horizontal">
 
+
+<!--    TODO: Put Title-->
     <TextView
         android:id="@+id/activity_statistics_title"
         android:layout_width="wrap_content"

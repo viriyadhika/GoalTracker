@@ -13,6 +13,22 @@
             <TextView
                 android:id="@+id/rview_row_main_title"
                 style="@style/recycler_view_title"/>
+
+            <ImageButton
+                android:id="@+id/rview_row_main_update"
+                android:layout_alignParentEnd="true"
+                android:background="@android:drawable/ic_menu_edit"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+            <ImageButton
+                android:id="@+id/rview_row_main_delete"
+                android:background="@android:drawable/ic_delete"
+                android:layout_toStartOf ="@id/rview_row_main_update"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+
         </RelativeLayout>
 
     </androidx.cardview.widget.CardView>

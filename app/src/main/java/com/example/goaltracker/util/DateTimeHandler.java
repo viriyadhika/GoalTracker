@@ -23,6 +23,7 @@ public class DateTimeHandler {
     public static final String LAST_WEEK = "lastweeeek";
     public static final String LAST_MONTH = "lastmonthhh";
 
+    //TODO: date Pattern and friendly should be implemented by StatisticsActivity
     private static final String datePattern = "dd/MM/uuuu";
     private static final String datePatternFriendly = "dd-MMM";
 

@@ -3,16 +3,12 @@ package com.example.goaltracker;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.os.Bundle;
-import android.provider.MediaStore;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.Spinner;
@@ -29,12 +25,14 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-public class AddGoalDialogFragment extends DialogFragment implements View.OnClickListener {
+public class GoalDialogFragment extends DialogFragment implements View.OnClickListener {
 
-    public static final String TAG = "AddGoalDialogFragment";
+    public static final String TAG = "GoalDialogFragment";
+
+    View view;
 
     EditText goalName;
-    private final List<String> MORE_THAN_OPTION = new ArrayList<String>(
+    protected final List<String> MORE_THAN_OPTION = new ArrayList<String>(
             Arrays.asList("More Than", "Less Than"));
 
     Spinner moreThan;
@@ -51,14 +49,15 @@ public class AddGoalDialogFragment extends DialogFragment implements View.OnClic
 
     Button saveButton;
 
-    AddGoalDialogListener listener;
+    GoalDialogListener listener;
 
     @NonNull
     @Override
     public Dialog onCreateDialog(@Nullable Bundle savedInstanceState) {
+
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         LayoutInflater inflater = requireActivity().getLayoutInflater();
-        View view = inflater.inflate(R.layout.dialog_add_new_goal, null);
+        view = inflater.inflate(R.layout.dialog_add_new_goal, null);
 
         //Set Up Goal Name
         goalName = view.findViewById(R.id.dialog_add_new_goal_goalname);
@@ -99,23 +98,31 @@ public class AddGoalDialogFragment extends DialogFragment implements View.OnClic
         //Set Up Default
         defaultval = view.findViewById(R.id.dialog_add_new_goal_default);
 
+
+
+        builder.setView(view);
+
+        return builder.create();
+    }
+
+    protected void setUpSaveButton() {
         //Set Up save button
         saveButton = view.findViewById(R.id.dialog_add_new_goal_saveButton);
         saveButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (goalName.getText() != null &&
-                moreThanSelection[0] != null &&
-                defaultval.getText() != null &&
-                frequencySelection != null &&
-                value.getText() != null) {
+                        moreThanSelection[0] != null &&
+                        defaultval.getText() != null &&
+                        frequencySelection != null &&
+                        value.getText() != null) {
                     String glName = goalName.getText().toString().trim();
                     boolean mrThan = moreThanSelection[0].equals(MORE_THAN_OPTION.get(0));
                     double val = Double.parseDouble(value.getText().toString().trim());
                     String frequency = frequencySelection;
                     double defVal = Double.parseDouble(defaultval.getText().toString().trim());
                     Goal toAdd = new Goal (glName, mrThan, val, frequency, defVal);
-                    listener.onClickAddGoalDialog(AddGoalDialogFragment.this, toAdd);
+                    listener.onClickGoalDialog(GoalDialogFragment.this, toAdd);
                 } else {
                     Snackbar.make(v, "Empty Field(s) not Allowed", Snackbar.LENGTH_SHORT)
                             .show();
@@ -123,12 +130,11 @@ public class AddGoalDialogFragment extends DialogFragment implements View.OnClic
             }
         });
 
-        builder.setView(view);
-
-        return builder.create();
     }
 
-    private void assignfreq(String selection) {
+
+
+    protected void assignfreq(String selection) {
         frequencySelection = selection;
     }
 
@@ -150,8 +156,8 @@ public class AddGoalDialogFragment extends DialogFragment implements View.OnClic
         }
     }
 
-    public interface AddGoalDialogListener {
-        void onClickAddGoalDialog(AddGoalDialogFragment dialog, Goal toAdd);
+    public interface GoalDialogListener {
+        void onClickGoalDialog(GoalDialogFragment dialog, Goal toAdd);
     }
 
 
@@ -161,7 +167,7 @@ public class AddGoalDialogFragment extends DialogFragment implements View.OnClic
         super.onAttach(context);
         try {
             // Instantiate the NoticeDialogListener so we can send events to the host
-            listener = (AddGoalDialogListener) context;
+            listener = (GoalDialogListener) context;
         } catch (ClassCastException e) {
             // The activity doesn't implement the interface, throw exception
             throw new ClassCastException(getActivity().toString()

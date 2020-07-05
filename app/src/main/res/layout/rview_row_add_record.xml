@@ -25,6 +25,7 @@
             <EditText
                 android:id="@+id/rview_row_add_record_valueinput"
                 android:layout_width="100dp"
+                android:inputType="numberDecimal"
                 android:layout_height="wrap_content"
                 android:textSize="@dimen/content_text"
                 android:autofillHints="@string/rview_row_add_record_inputhint" />

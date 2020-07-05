@@ -19,6 +19,7 @@
     <string name="dialog_add_new_goal_freq_weekly">Weekly</string>
     <string name="dialog_add_new_goal_freq_monthly">Monthly</string>
 
+
     <string-array name="dialog_add_new_goal_more_than">
         <item>More Than</item>
         <item>Less Than</item>
@@ -31,5 +32,6 @@
     <!--    Activity_add_record-->
     <string name="activity_add_record_from">From</string>
     <string name="activity_add_record_to">To</string>
+
 
 </resources>

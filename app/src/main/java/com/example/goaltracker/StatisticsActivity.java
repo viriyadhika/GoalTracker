@@ -30,6 +30,9 @@ import java.util.List;
 public class StatisticsActivity extends AppCompatActivity {
 
     public static final String TAG = "StatisticsActivity";
+
+    public static final int DATA_DISPLAYED_WEEKLY = 8;
+
     GoalViewModel goalViewModel;
     RecordViewModel recordViewModel;
 
@@ -77,17 +80,16 @@ public class StatisticsActivity extends AppCompatActivity {
         chart = findViewById(R.id.activity_statistics_chart);
 
         for (Record record : records) {
-            int index = 6 - DateTimeHandler.countDaysBetween(record.getDate(),
+            int index = (DATA_DISPLAYED_WEEKLY - 1) - DateTimeHandler.countDaysBetween(record.getDate(),
                     DateTimeHandler.getCalendarLong(DateTimeHandler.NOW));
             entries.add(new BarEntry((float) index, (float) record.getValue()));
-            Log.d(TAG, "displayChart: " + index);
         }
 
         final List<String> labels = DateTimeHandler.generateDaysFrom(
                 DateTimeHandler.getCalendarLong(DateTimeHandler.LAST_WEEK),
                 DateTimeHandler.getCalendarLong(DateTimeHandler.NOW));
 
-//        final String[] labels = DateTimeHandler.getCalendarTextPastWeek();
+
         ValueFormatter formatter = new ValueFormatter() {
             @Override
             public String getAxisLabel(float value, AxisBase axis) {
@@ -95,6 +97,8 @@ public class StatisticsActivity extends AppCompatActivity {
             }
         };
 
+        //TODO: Make this more beautiful
+        //TODO: solve auto rescale in y axis
         BarDataSet dataSet = new BarDataSet(entries, "a Label");
         BarData barData = new BarData(dataSet);
         barData.setBarWidth(0.9f);
@@ -103,7 +107,7 @@ public class StatisticsActivity extends AppCompatActivity {
         xAxis.setGranularity(1f); // minimum axis-step (interval) is 1
         xAxis.setValueFormatter(formatter);
         xAxis.setAxisMinimum(-0.5f);
-        xAxis.setAxisMaximum(6.5f);
+        xAxis.setAxisMaximum((float) (DATA_DISPLAYED_WEEKLY - 0.5));
 
         chart.setData(barData);
         chart.setTouchEnabled(false);

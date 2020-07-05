@@ -27,9 +27,13 @@ public interface GoalDao {
     int deleteAGoal(int id);
 
     @Query("UPDATE " + Constants.GOAL_TABLE_NAME
-            + " SET " + Constants.GOAL_NAME_COLUMN_NAME + " = :goal " +
-            "WHERE id = :id")
-    int updateGoal(int id, String goal);
+            + " SET " + Constants.GOAL_NAME_COLUMN_NAME + " = :goal,"
+            + Constants.GOAL_TARGET_COLUMN_NAME + " = :moreThanValue,"
+            + Constants.GOAL_VALUE_COLUMN_NAME + " = :value,"
+            + Constants.GOAL_FREQUENCY_NAME + " = :frequency,"
+            + Constants.GOAL_DEFAULT_COLUMN_NAME + " = :defaultValue "
+            + " WHERE id = :id")
+    int updateGoal(int id, String goal, boolean moreThanValue, double value, String frequency, double defaultValue);
 
     @Query("SELECT * FROM " + Constants.GOAL_TABLE_NAME + " ORDER BY " + Constants.GOAL_NAME_COLUMN_NAME + " DESC")
     LiveData<List<Goal>> getAllGoals();
