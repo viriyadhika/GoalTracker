@@ -3,6 +3,7 @@ package com.example.goaltracker.adapter;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -19,6 +20,8 @@ public class RecordRViewAdapter extends RecyclerView.Adapter<RecordRViewAdapter.
 
     List<Record> allRecords;
 
+    OnDeleteClickListener listener;
+
     @NonNull
     @Override
     public RecordRViewAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -29,14 +32,30 @@ public class RecordRViewAdapter extends RecyclerView.Adapter<RecordRViewAdapter.
     }
 
     @Override
-    public void onBindViewHolder(@NonNull RecordRViewAdapter.ViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull RecordRViewAdapter.ViewHolder holder, final int position) {
         if (allRecords != null) {
-            Record current = allRecords.get(position);
+            final Record current = allRecords.get(position);
             holder.dateTextView.setText(DateTimeHandler.longToStringDate(current.getDate()));
             holder.valueTextView.setText(String.valueOf(current.getValue()));
+            holder.deleteButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (listener != null) {
+                        listener.onDeleteClick(current);
+                    }
+                }
+            });
         } else {
             holder.dateTextView.setText(R.string.rview_row_main_no_record);
         }
+    }
+
+    public interface OnDeleteClickListener {
+        void onDeleteClick(Record record);
+    }
+
+    public void setOnDeleteClickListener(OnDeleteClickListener onDeleteClickListener) {
+        this.listener = onDeleteClickListener;
     }
 
     @Override
@@ -56,12 +75,14 @@ public class RecordRViewAdapter extends RecyclerView.Adapter<RecordRViewAdapter.
 
         public TextView dateTextView;
         public TextView valueTextView;
+        public ImageButton deleteButton;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
 
             dateTextView = itemView.findViewById(R.id.rview_row_view_record_date);
             valueTextView = itemView.findViewById(R.id.rview_row_view_record_value);
+            deleteButton = itemView.findViewById(R.id.rview_row_view_record_delete);
 
         }
     }

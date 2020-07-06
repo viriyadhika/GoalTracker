@@ -48,8 +48,10 @@ public class GoalRViewAdapter_AddRecord extends GoalRViewAdapter {
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                values.put(GoalRViewAdapter_AddRecord.super.goalList.get(position),
-                        Double.parseDouble(s.toString()));
+                if (s != null && !s.toString().isEmpty()) {
+                    values.put(GoalRViewAdapter_AddRecord.super.goalList.get(position),
+                            Double.parseDouble(s.toString()));
+                }
             }
 
             @Override

@@ -26,6 +26,13 @@
                 android:layout_alignBottom="@id/rview_row_view_record_valueText"
                 android:layout_toEndOf="@id/rview_row_view_record_valueText" />
 
+            <ImageButton
+                android:id="@+id/rview_row_view_record_delete"
+                android:background="@android:drawable/ic_delete"
+                android:layout_alignParentEnd="true"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
         </RelativeLayout>
 
 

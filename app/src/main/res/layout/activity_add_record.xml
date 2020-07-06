@@ -14,7 +14,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-
+        android:gravity="center_horizontal"
         android:weightSum="10">
 
         <TextView
@@ -37,6 +37,12 @@
             android:layout_weight="1" />
 
     </LinearLayout>
+
+    <FrameLayout
+        android:background="@color/colorPrimary"
+        android:outlineSpotShadowColor="@color/colorPrimaryDark"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/stroke_width" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/add_record_act_rview"

@@ -36,6 +36,12 @@ public class ViewRecordActivity extends AppCompatActivity {
 
         recyclerView = findViewById(R.id.activity_view_record_rview);
         recordRViewAdapter = new RecordRViewAdapter();
+        recordRViewAdapter.setOnDeleteClickListener(new RecordRViewAdapter.OnDeleteClickListener() {
+            @Override
+            public void onDeleteClick(Record record) {
+                recordViewModel.delete(record);
+            }
+        });
 
         recyclerView.setAdapter(recordRViewAdapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
