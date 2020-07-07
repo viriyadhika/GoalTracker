@@ -113,24 +113,6 @@
 
     </LinearLayout>
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center_vertical">
-
-        <TextView
-            android:text="@string/dialog_add_new_goal_default"
-            style="@style/dialog_content"
-            android:layout_weight="1" />
-
-        <EditText
-            android:id="@+id/dialog_add_new_goal_default"
-            android:inputType="numberDecimal"
-            style="@style/edit_text"
-            android:layout_weight="2" />
-
-    </LinearLayout>
-
     <Button
         android:id="@+id/dialog_add_new_goal_saveButton"
         style="@style/save_button"

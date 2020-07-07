@@ -86,7 +86,6 @@ public class DateTimeHandler {
         return text;
     }
 
-    //TODO: Remove hard code
     public static List<String> generateDaysFrom(long dateStartLong, long dateEndLong) {
         LocalDate dateStart = longToLocalDate(dateStartLong);
         LocalDate dateEnd = longToLocalDate(dateEndLong);
@@ -95,18 +94,6 @@ public class DateTimeHandler {
         while (!iterativeDate.isAfter(dateEnd)) {
             result.add(localDateToFriendlyString(iterativeDate));
             iterativeDate = iterativeDate.plusDays(1);
-        }
-
-        return result;
-    }
-
-    public static String[] getCalendarTextPastWeek() {
-        LocalDate dateNow = LocalDate.now();
-        LocalDate date;
-        String[] result = new String[7];
-        for (Integer i : Arrays.asList(0, 1, 2, 3, 4, 5, 6)) {
-            date = dateNow.minusDays(6 - i);
-            result[i] = DateTimeHandler.getCalendarText(date.getYear(), date.getMonthValue(), date.getDayOfMonth());
         }
 
         return result;

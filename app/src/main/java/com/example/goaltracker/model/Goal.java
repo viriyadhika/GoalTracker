@@ -25,15 +25,11 @@ public class Goal {
     @ColumnInfo(name = Constants.GOAL_FREQUENCY_NAME)
     private String frequency;
 
-    @ColumnInfo(name = Constants.GOAL_DEFAULT_COLUMN_NAME)
-    private double defaultvalue;
-
-    public Goal(String goalName, boolean moreThanValue, double value, String frequency, double defaultvalue) {
+    public Goal(String goalName, boolean moreThanValue, double value, String frequency) {
         this.goalName = goalName;
         this.moreThanValue = moreThanValue;
         this.value = value;
         this.frequency = frequency;
-        this.defaultvalue = defaultvalue;
     }
 
     public int getId() {
@@ -76,14 +72,6 @@ public class Goal {
         this.frequency = frequency;
     }
 
-    public double getDefaultvalue() {
-        return defaultvalue;
-    }
-
-    public void setDefaultvalue(double defaultvalue) {
-        this.defaultvalue = defaultvalue;
-    }
-
     @Override
     public String toString() {
         return "Goal{" +
@@ -92,7 +80,6 @@ public class Goal {
                 ", moreThanValue=" + moreThanValue +
                 ", value=" + value +
                 ", frequency='" + frequency + '\'' +
-                ", defaultvalue=" + defaultvalue +
                 '}';
     }
 }

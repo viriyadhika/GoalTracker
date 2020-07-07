@@ -14,7 +14,6 @@ public class Constants {
     public static final String GOAL_TARGET_COLUMN_NAME = "goal_target_col";
     public static final String GOAL_VALUE_COLUMN_NAME = "goal_value_col";
     public static final String GOAL_FREQUENCY_NAME = "goal_freq_col";
-    public static final String GOAL_DEFAULT_COLUMN_NAME = "goal_default_col";
 
     //Record DB Constants
     public static final String REC_TABLE_NAME = "record_table";
@@ -27,8 +26,6 @@ public class Constants {
     public static final String WEEKLY = "weekly";
     public static final String MONTHLY = "monthly";
 
-    //Passing goalid from MainActivity -> StatisticsActivity
-    public static final String GOALID_NAME = "goalid";
 
     //Option for spinner in AddGoalActivity
     public static final List<String> MORE_THAN_OPTION = new ArrayList<String>(

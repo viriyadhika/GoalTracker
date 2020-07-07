@@ -19,6 +19,7 @@ import com.example.goaltracker.adapter.GoalRViewAdapter_Main;
 import com.example.goaltracker.model.Goal;
 import com.example.goaltracker.model.GoalViewModel;
 import com.example.goaltracker.util.Constants;
+import com.example.goaltracker.util.GoalBundleHandler;
 import com.google.android.material.snackbar.Snackbar;
 
 import java.util.List;
@@ -50,9 +51,10 @@ public class MainActivity extends AppCompatActivity
             @Override
             public void onGoalClick(int position) {
                 Goal goal = goalRViewAdapter.getGoal(position);
-                //TODO:Implement wait for result
                 Intent intent = new Intent(MainActivity.this, StatisticsActivity.class);
-                intent.putExtra(Constants.GOALID_NAME, goal.getId());
+                Bundle args = GoalBundleHandler.putGoalInBundle(goal);
+                Log.d(TAG, "onGoalClick: " + args);
+                intent.putExtras(args);
                 startActivity(intent);
             }
         });
@@ -98,7 +100,6 @@ public class MainActivity extends AppCompatActivity
         addRecord.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //TODO: Implement wait for result
                 Intent intent = new Intent(MainActivity.this, AddRecordActivity.class);
                 startActivityForResult(intent, Constants.MAIN_ADD_RECORD_REQUESTCODE);
             }
@@ -134,18 +135,12 @@ public class MainActivity extends AppCompatActivity
     private void showUpdateGoalDialog(Goal goal) {
         UpdateGoalDialogFragment dialog = new UpdateGoalDialogFragment();
 
-        Bundle args = new Bundle();
-
-        args.putInt(Constants.GOAL_ID_COLUMN_NAME, goal.getId());
-        args.putString(Constants.GOAL_NAME_COLUMN_NAME, goal.getGoalName());
-        args.putBoolean(Constants.GOAL_TARGET_COLUMN_NAME, goal.isMoreThanValue());
-        args.putDouble(Constants.GOAL_VALUE_COLUMN_NAME, goal.getValue());
-        args.putString(Constants.GOAL_FREQUENCY_NAME, goal.getFrequency());
-        args.putDouble(Constants.GOAL_DEFAULT_COLUMN_NAME, goal.getDefaultvalue());
+        Bundle args = GoalBundleHandler.putGoalInBundle(goal);
 
         dialog.setArguments(args);
         dialog.show(getSupportFragmentManager(), "AddGoalDialog");
     }
+
 
     @Override
     public void onClickUpdateGoalDialog(UpdateGoalDialogFragment dialog, Goal toUpdate, boolean update) {

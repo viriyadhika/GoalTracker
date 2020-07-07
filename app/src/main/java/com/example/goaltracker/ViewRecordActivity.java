@@ -32,7 +32,7 @@ public class ViewRecordActivity extends AppCompatActivity {
         //Get the extras passed from prev's activity
         Bundle extras = getIntent().getExtras();
         assert extras != null : TAG + ": No extras found from Intent";
-        final int goalid = extras.getInt(Constants.GOALID_NAME);
+        final int goalid = extras.getInt(Constants.GOAL_ID_COLUMN_NAME);
 
         recyclerView = findViewById(R.id.activity_view_record_rview);
         recordRViewAdapter = new RecordRViewAdapter();

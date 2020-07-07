@@ -115,7 +115,6 @@ public class GoalRViewAdapter_Main extends GoalRViewAdapter {
         public ImageButton editButton;
         public TextView targetText;
 
-        //TODO: Implement update and delete items
         public ViewHolder(@NonNull View itemView, Context context) {
             super(itemView, context, (TextView) itemView.findViewById(R.id.rview_row_main_title));
             deleteButton = itemView.findViewById(R.id.rview_row_main_delete);

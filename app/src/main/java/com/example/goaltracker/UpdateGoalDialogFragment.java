@@ -49,8 +49,6 @@ public class UpdateGoalDialogFragment extends DialogFragment implements View.OnC
     RadioButton monthly;
     String frequencySelection;
 
-    EditText defaultval;
-
     Button saveButton;
 
     UpdateGoalDialogListener listener;
@@ -93,7 +91,6 @@ public class UpdateGoalDialogFragment extends DialogFragment implements View.OnC
         value = view.findViewById(R.id.dialog_add_new_goal_value);
 
         //Set Up the 3 Frequency Radio Button
-        //TODO: Dive to pressing mechanism of the button
         daily = view.findViewById(R.id.dialog_add_new_goal_daily);
         daily.setOnClickListener(this);
 
@@ -102,9 +99,6 @@ public class UpdateGoalDialogFragment extends DialogFragment implements View.OnC
 
         monthly = view.findViewById(R.id.dialog_add_new_goal_monthly);
         monthly.setOnClickListener(this);
-
-        //Set Up Default
-        defaultval = view.findViewById(R.id.dialog_add_new_goal_default);
 
         //If this is an update window, then populate the dialog, otherwise don't do anything
         final boolean updateWindow = getArguments() != null;
@@ -119,7 +113,6 @@ public class UpdateGoalDialogFragment extends DialogFragment implements View.OnC
             public void onClick(View v) {
                 if (!goalName.getText().toString().matches("") &&
                         moreThanSelection[0] != null &&
-                        !defaultval.getText().toString().matches("") &&
                         frequencySelection != null &&
                         !value.getText().toString().matches("")) {
 
@@ -127,8 +120,8 @@ public class UpdateGoalDialogFragment extends DialogFragment implements View.OnC
                     boolean mrThan = moreThanSelection[0].equals(Constants.MORE_THAN_OPTION.get(0));
                     double val = Double.parseDouble(value.getText().toString().trim());
                     String frequency = frequencySelection;
-                    double defVal = Double.parseDouble(defaultval.getText().toString().trim());
-                    Goal toAdd = new Goal (glName, mrThan, val, frequency, defVal);
+
+                    Goal toAdd = new Goal (glName, mrThan, val, frequency);
                     if (updateWindow) {
                         int goalId = getArguments().getInt(Constants.GOAL_ID_COLUMN_NAME);
                         toAdd.setId(goalId);
@@ -199,7 +192,6 @@ public class UpdateGoalDialogFragment extends DialogFragment implements View.OnC
         boolean target = arguments.getBoolean(Constants.GOAL_TARGET_COLUMN_NAME);
         double val = arguments.getDouble(Constants.GOAL_VALUE_COLUMN_NAME);
         String freq = arguments.getString(Constants.GOAL_FREQUENCY_NAME);
-        double defaultValue = arguments.getDouble(Constants.GOAL_DEFAULT_COLUMN_NAME);
 
         title.setText(columnName);
 
@@ -224,8 +216,6 @@ public class UpdateGoalDialogFragment extends DialogFragment implements View.OnC
                 monthly.performClick();
                 break;
         }
-
-        defaultval.setText(String.valueOf(defaultValue));
 
     }
 

@@ -150,7 +150,6 @@ public class AddRecordActivity extends AppCompatActivity  {
 
     }
 
-    //TODO: Implement snackbar when saving, go back to the previous activity
     /**
      * When saving the file, it only detect which goal is filled. Only those got filled will be input to database
      */

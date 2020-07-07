@@ -8,8 +8,10 @@ import androidx.lifecycle.ViewModelProviders;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 
 import com.example.goaltracker.model.Goal;
 import com.example.goaltracker.model.GoalViewModel;
@@ -17,6 +19,7 @@ import com.example.goaltracker.model.Record;
 import com.example.goaltracker.model.RecordViewModel;
 import com.example.goaltracker.util.Constants;
 import com.example.goaltracker.util.DateTimeHandler;
+import com.example.goaltracker.util.GoalBundleHandler;
 import com.github.mikephil.charting.charts.BarChart;
 import com.github.mikephil.charting.components.AxisBase;
 import com.github.mikephil.charting.components.XAxis;
@@ -40,12 +43,14 @@ public class StatisticsActivity extends AppCompatActivity {
 
     Button viewButton;
 
+    TextView titleText;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_statistics);
 
-
+        //SetUpDatabase
         goalViewModel = ViewModelProviders.of(this)
                 .get(GoalViewModel.class);
         goalViewModel.getAllGoal().observe(this, new Observer<List<Goal>>() {
@@ -67,23 +72,30 @@ public class StatisticsActivity extends AppCompatActivity {
         //Get the extras passed from prev's activity
         Bundle extras = getIntent().getExtras();
         assert extras != null : TAG + ": No extras found from Intent";
-        final int goalid = extras.getInt(Constants.GOALID_NAME);
-        getPastWeekRecords(goalid).observe(this, new Observer<List<Record>>() {
+        final Goal goal = GoalBundleHandler.getGoalFromBundle(extras);
+        getPastWeekRecords(goal.getId()).observe(this, new Observer<List<Record>>() {
             @Override
             public void onChanged(List<Record> records) {
                 displayChart(records);
             }
         });
 
-        Button viewButton = findViewById(R.id.activity_statistics_view_button);
+        //Set Up Title
+        titleText = findViewById(R.id.activity_statistics_title);
+        titleText.setText(goal.getGoalName());
+
+        //SetUp View Button
+        viewButton = findViewById(R.id.activity_statistics_view_button);
         viewButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(StatisticsActivity.this, ViewRecordActivity.class);
-                intent.putExtra(Constants.GOALID_NAME, goalid);
+                intent.putExtra(Constants.GOAL_ID_COLUMN_NAME, goal.getId());
                 startActivity(intent);
             }
         });
+
+
 
     }
 
@@ -111,8 +123,7 @@ public class StatisticsActivity extends AppCompatActivity {
             }
         };
 
-        //TODO: Make this more beautiful
-        //TODO: solve auto rescale in y axis
+
         BarDataSet dataSet = new BarDataSet(entries, "a Label");
         BarData barData = new BarData(dataSet);
         barData.setBarWidth(0.9f);

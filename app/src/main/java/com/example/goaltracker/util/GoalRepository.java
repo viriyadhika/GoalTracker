@@ -94,8 +94,7 @@ public class GoalRepository {
                     goals[0].getGoalName(),
                     goals[0].isMoreThanValue(),
                     goals[0].getValue(),
-                    goals[0].getFrequency(),
-                    goals[0].getDefaultvalue());
+                    goals[0].getFrequency());
             return null;
         }
     }
