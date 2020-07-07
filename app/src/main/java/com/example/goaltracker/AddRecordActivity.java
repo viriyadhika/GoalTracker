@@ -9,13 +9,12 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
-import android.text.Editable;
-import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.ImageButton;
 
 import com.example.goaltracker.adapter.GoalRViewAdapter_AddRecord;
 
@@ -45,7 +44,7 @@ public class AddRecordActivity extends AppCompatActivity  {
     private GoalRViewAdapter_AddRecord goalRViewAdapter;
     private RecyclerView recyclerView;
 
-    private Button calendarButton;
+    private ImageButton calendarButton;
     private Button saveButton;
 
     private EditText calendarEditText;
@@ -53,7 +52,7 @@ public class AddRecordActivity extends AppCompatActivity  {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_update_record);
+        setContentView(R.layout.activity_add_record);
 
         //Set up Recycler View
         recyclerView = findViewById(R.id.add_record_act_rview);
@@ -100,7 +99,7 @@ public class AddRecordActivity extends AppCompatActivity  {
 
             }
         });
-        calendarButton = findViewById(R.id.activity_add_record_calendar_from);
+        calendarButton = findViewById(R.id.activity_add_record_calendar);
         calendarButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

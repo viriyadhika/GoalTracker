@@ -29,6 +29,8 @@ public class RecordRepository {
 
     public LiveData<List<Record>> getRecord (int id) { return recordDao.getRecord(id); }
 
+
+
     public void insert(Record record) {
         new RecordRepository.insertAsyncTask(recordDao).execute(record);
     }

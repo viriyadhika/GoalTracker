@@ -2,11 +2,12 @@ package com.example.goaltracker.model;
 
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
+import androidx.room.Index;
 import androidx.room.PrimaryKey;
 
 import com.example.goaltracker.util.Constants;
 
-@Entity(tableName = Constants.GOAL_TABLE_NAME)
+@Entity(tableName = Constants.GOAL_TABLE_NAME, indices = {@Index(value = {"id"}, unique = true)})
 public class Goal {
 
     @PrimaryKey(autoGenerate =  true)

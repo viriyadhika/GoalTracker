@@ -45,7 +45,6 @@ public class RecordViewModel extends AndroidViewModel {
         }
     }
 
-
     //TODO: make delete return int
     public void delete(Record record) {recordRepository.delete(record);}
 

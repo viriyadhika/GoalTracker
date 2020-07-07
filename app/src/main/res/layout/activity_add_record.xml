@@ -14,7 +14,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:gravity="center_horizontal"
+        android:gravity="center_horizontal|center_vertical"
         android:weightSum="10">
 
         <TextView
@@ -30,8 +30,9 @@
             android:layout_height="wrap_content"
             android:layout_weight="4" />
 
-        <Button
-            android:id="@+id/activity_add_record_calendar_from"
+        <ImageButton
+            android:background="@android:drawable/ic_menu_my_calendar"
+            android:id="@+id/activity_add_record_calendar"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1" />

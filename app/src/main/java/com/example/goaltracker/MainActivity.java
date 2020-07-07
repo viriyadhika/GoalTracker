@@ -71,6 +71,7 @@ public class MainActivity extends AppCompatActivity
             }
         });
 
+
         recyclerView.setAdapter(goalRViewAdapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
@@ -110,9 +111,10 @@ public class MainActivity extends AppCompatActivity
         super.onActivityResult(requestCode, resultCode, data);
 
         if (requestCode == Constants.MAIN_ADD_RECORD_REQUESTCODE) {
-            assert data != null : "No message from AddRecord to Main";
             if (resultCode == RESULT_OK) {
+                assert data != null : "Nothing is passed from AddRecordActivity";
                 String msg = data.getStringExtra(Constants.MAIN_ADD_RECORD_MSGNAME);
+                assert msg != null : "Nothing is passed from AddRecordActivity";
                 Snackbar.make(recyclerView, msg, Snackbar.LENGTH_SHORT)
                         .show();
             }

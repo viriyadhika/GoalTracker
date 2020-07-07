@@ -2,11 +2,16 @@ package com.example.goaltracker.model;
 
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
+import androidx.room.ForeignKey;
 import androidx.room.PrimaryKey;
+import androidx.room.util.TableInfo;
 
 import com.example.goaltracker.util.Constants;
 
-@Entity(tableName = Constants.REC_TABLE_NAME)
+@Entity(tableName = Constants.REC_TABLE_NAME, foreignKeys = @ForeignKey(entity = Goal.class,
+        parentColumns = "id",
+        childColumns = Constants.REC_GOAL_ID_COLUMN_NAME,
+        onDelete = ForeignKey.CASCADE))
 public class Record {
 
     @PrimaryKey(autoGenerate =  true)
