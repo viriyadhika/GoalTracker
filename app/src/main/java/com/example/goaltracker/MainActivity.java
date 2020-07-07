@@ -1,11 +1,13 @@
 package com.example.goaltracker;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -97,9 +99,24 @@ public class MainActivity extends AppCompatActivity
             public void onClick(View v) {
                 //TODO: Implement wait for result
                 Intent intent = new Intent(MainActivity.this, AddRecordActivity.class);
-                startActivity(intent);
+                startActivityForResult(intent, Constants.MAIN_ADD_RECORD_REQUESTCODE);
             }
         });
+
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (requestCode == Constants.MAIN_ADD_RECORD_REQUESTCODE) {
+            assert data != null : "No message from AddRecord to Main";
+            if (resultCode == RESULT_OK) {
+                String msg = data.getStringExtra(Constants.MAIN_ADD_RECORD_MSGNAME);
+                Snackbar.make(recyclerView, msg, Snackbar.LENGTH_SHORT)
+                        .show();
+            }
+        }
 
     }
 
@@ -133,10 +150,10 @@ public class MainActivity extends AppCompatActivity
         String text;
         if (update) {
             goalViewModel.update(toUpdate);
-            text = "Update Saved";
+            text = "Update Saved!";
         } else {
             goalViewModel.insert(toUpdate);
-            text = "Goal Saved";
+            text = "New Habit Saved!";
         }
         dialog.dismiss();
         Snackbar.make(recyclerView, text, Snackbar.LENGTH_SHORT)

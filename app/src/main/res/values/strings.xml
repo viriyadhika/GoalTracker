@@ -1,8 +1,8 @@
 <resources>
-    <string name="app_name">GoalTracker</string>
+    <string name="app_name">Habit Tracker</string>
 
     <!--    Main Activity-->
-    <string name="rview_row_main_no_goal">No goal inserted. Start by adding a goal</string>
+    <string name="rview_row_main_no_goal">No habit inserted. Start by adding a new habit</string>
     <string name="rview_row_main_no_record">No record inserted. Start by adding a record</string>
 
     <!--    Add and View Record Activity-->
@@ -10,8 +10,8 @@
     <string name="rview_row_add_record_inputhint">Insert Today Value</string>
 
     <!--    Add New Goal Dialog Box-->
-    <string name="dialog_add_new_goal_title">ADD A NEW GOAL</string>
-    <string name="dialog_add_new_goal_goalname">GOAL:</string>
+    <string name="dialog_add_new_goal_title">ADD A NEW HABIT</string>
+    <string name="dialog_add_new_goal_goalname">HABIT:</string>
     <string name="dialog_add_new_goal_target">TARGET:</string>
     <string name="dialog_add_new_goal_frequency">FREQUENCY:</string>
     <string name="dialog_add_new_goal_default">DEFAULT FILL:</string>
@@ -25,7 +25,7 @@
     <string name="save_button">SAVE</string>
 
     <!--    Activity_add_record-->
-    <string name="activity_add_record_date">Date</string>
+    <string name="activity_add_record_date">Date (DD/MM/YYYY)</string>
 
 <!--    Activity_statistics-->
     <string name="activity_statistics_view_button">View All Records</string>

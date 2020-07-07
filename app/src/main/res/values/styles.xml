@@ -14,7 +14,7 @@
     </style>
 
     <style name="app_heading2_text" parent="TextAppearance.AppCompat" >
-        <item name="android:textSize">@dimen/title_text</item>
+        <item name="android:textSize">@dimen/content_text</item>
         <item name="android:textColor">@color/colorPrimaryDark</item>
         <item name="android:textStyle">bold</item>
         <item name="fontFamily">@font/roboto</item>

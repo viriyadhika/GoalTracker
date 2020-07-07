@@ -2,6 +2,9 @@ package com.example.goaltracker.util;
 
 import android.util.Log;
 
+import com.example.goaltracker.exception.DateAfterTodayException;
+import com.example.goaltracker.exception.DateFormatInvalidException;
+
 import java.lang.reflect.Array;
 import java.text.MessageFormat;
 import java.time.Instant;
@@ -9,6 +12,7 @@ import java.time.LocalDate;
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
@@ -139,6 +143,9 @@ public class DateTimeHandler {
             case LAST_MONTH:
                 date = date.minusMonths(1);
                 break;
+            default:
+                DateTimeFormatter formatter = DateTimeFormatter.ofPattern(datePattern);
+                date = LocalDate.parse(param, formatter);
         }
         return date;
     }
@@ -152,7 +159,6 @@ public class DateTimeHandler {
         LocalDate dateNow = LocalDate.now();
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern(datePattern);
         LocalDate date = LocalDate.parse(dateString, formatter);
-        Log.d(TAG, "afterNow: " + dateNow + " " + date);
         return date.isAfter(dateNow);
     }
 
@@ -167,6 +173,40 @@ public class DateTimeHandler {
         LocalDate date1 = LocalDate.parse(dateString1, formatter);
         LocalDate date2 = LocalDate.parse(dateString2, formatter);
         return date1.isAfter(date2);
+    }
+
+
+    public static void verifyDate(String dateString)
+            throws DateAfterTodayException, DateFormatInvalidException {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern(datePattern);
+        try {
+            LocalDate.parse(dateString, formatter);
+            if (afterNow(dateString)) {
+                throw new DateAfterTodayException();
+            }
+
+        } catch (DateTimeParseException e) {
+            throw new DateFormatInvalidException();
+        }
+
+    }
+
+    //Get the date, year, month for datepickerdialog
+    public static int getDate(String dateString) {
+        LocalDate date = getLocalDate(dateString);
+        return date.getDayOfMonth();
+    }
+
+    //Get the date, year, month for datepickerdialog
+    public static int getMonth(String dateString) {
+        LocalDate date = getLocalDate(dateString);
+        return date.getMonthValue();
+    }
+
+    //Get the date, year, month for datepickerdialog
+    public static int getYear(String dateString) {
+        LocalDate date = getLocalDate(dateString);
+        return date.getYear();
     }
 
 

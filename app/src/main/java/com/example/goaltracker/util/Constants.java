@@ -30,7 +30,12 @@ public class Constants {
     //Passing goalid from MainActivity -> StatisticsActivity
     public static final String GOALID_NAME = "goalid";
 
+    //Option for spinner in AddGoalActivity
     public static final List<String> MORE_THAN_OPTION = new ArrayList<String>(
             Arrays.asList("More than", "Less than"));
+
+    //Passing intent from MainActivity -> AddRecordActivity
+    public static final int MAIN_ADD_RECORD_REQUESTCODE = 1248;
+    public static final String MAIN_ADD_RECORD_MSGNAME = "mainAddRecordMsg";
 
 }

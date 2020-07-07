@@ -32,16 +32,18 @@ public class RecordViewModel extends AndroidViewModel {
     public LiveData<List<Record>> getRecord (int id) {return recordRepository.getRecord(id); }
 
     public void insert(Record toAdd) throws DuplicateRecordException {
+        recordRepository.insert(toAdd);
+    }
+
+    public void checkDuplicate(Record toCheck) throws DuplicateRecordException {
         if (recordRepository.getAllRecord().getValue() != null) {
             for (Record record : recordRepository.getAllRecord().getValue()) {
-                if (record.getDate() == toAdd.getDate() && record.getGoalid() == toAdd.getGoalid()) {
+                if (record.getDate() == toCheck.getDate() && record.getGoalid() == toCheck.getGoalid()) {
                     throw new DuplicateRecordException();
                 }
             }
-            recordRepository.insert(toAdd);
         }
     }
-
 
 
     //TODO: make delete return int
