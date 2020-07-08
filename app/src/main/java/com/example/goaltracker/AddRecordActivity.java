@@ -9,7 +9,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
@@ -18,22 +17,14 @@ import android.widget.ImageButton;
 
 import com.example.goaltracker.adapter.GoalRViewAdapter_AddRecord;
 
-import com.example.goaltracker.exception.DateAfterTodayException;
-import com.example.goaltracker.exception.DateFormatInvalidException;
-import com.example.goaltracker.exception.DuplicateRecordException;
 import com.example.goaltracker.model.AddRecordViewModel;
 import com.example.goaltracker.model.Goal;
-import com.example.goaltracker.model.GoalViewModel;
-import com.example.goaltracker.model.Record;
-import com.example.goaltracker.model.RecordViewModel;
 import com.example.goaltracker.util.Constants;
 import com.example.goaltracker.util.DateTimeHandler;
 import com.google.android.material.snackbar.Snackbar;
 
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 public class AddRecordActivity extends AppCompatActivity  {
 

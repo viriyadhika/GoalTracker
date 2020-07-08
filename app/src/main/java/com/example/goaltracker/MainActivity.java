@@ -2,23 +2,25 @@ package com.example.goaltracker;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.LiveData;
+import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
-import android.widget.RadioButton;
 
 import com.example.goaltracker.adapter.GoalRViewAdapter_Main;
 import com.example.goaltracker.model.Goal;
-import com.example.goaltracker.model.GoalViewModel;
+import com.example.goaltracker.model.MainViewModel;
+import com.example.goaltracker.model.Record;
 import com.example.goaltracker.util.Constants;
+import com.example.goaltracker.util.DateTimeHandler;
 import com.example.goaltracker.util.GoalBundleHandler;
 import com.google.android.material.snackbar.Snackbar;
 
@@ -29,7 +31,7 @@ public class MainActivity extends AppCompatActivity
 
     private static final String TAG = "Main Activity";
     //Interact with Database
-    private GoalViewModel goalViewModel;
+    private MainViewModel mainViewModel;
 
     //Recycler View Component
     private GoalRViewAdapter_Main goalRViewAdapter;
@@ -47,40 +49,71 @@ public class MainActivity extends AppCompatActivity
         //Setup Recycler View
         recyclerView = findViewById(R.id.main_act_rview);
         goalRViewAdapter = new GoalRViewAdapter_Main(this);
-        goalRViewAdapter.setOnGoalClickListener(new GoalRViewAdapter_Main.OnGoalClickListener() {
+        goalRViewAdapter.setLifecycleOwner(this);
+        goalRViewAdapter.setGoalRViewAdapterListener(new GoalRViewAdapter_Main.GoalRViewAdapterListener() {
             @Override
-            public void onGoalClick(int position) {
-                Goal goal = goalRViewAdapter.getGoal(position);
+            public void onGoalClick(Goal goal) {
                 Intent intent = new Intent(MainActivity.this, StatisticsActivity.class);
                 Bundle args = GoalBundleHandler.putGoalInBundle(goal);
                 Log.d(TAG, "onGoalClick: " + args);
                 intent.putExtras(args);
                 startActivity(intent);
             }
-        });
-        goalRViewAdapter.setOnDeleteClickListener(new GoalRViewAdapter_Main.OnDeleteClickListener() {
+
             @Override
-            public void onDeleteClick(int position) {
-                Goal goal = goalRViewAdapter.getGoal(position);
-                goalViewModel.delete(goal);
-            }
-        });
-        goalRViewAdapter.setOnEditClickListener(new GoalRViewAdapter_Main.OnEditClickListener() {
-            @Override
-            public void onEditClick(int position) {
-                Goal goal = goalRViewAdapter.getGoal(position);
+            public void onEditClick(Goal goal) {
                 showUpdateGoalDialog(goal);
             }
+
+            @Override
+            public void onDeleteClick(Goal goal) {
+                mainViewModel.delete(goal);
+            }
+
+            @Override
+            public LiveData<Integer> getProgressBar(final Goal goal) {
+                final int[] progress = new int[1];
+                LiveData<List<Record>> liveData = null;
+
+                if (goal.getFrequency().equals(Constants.DAILY)) {
+                    liveData = mainViewModel.getRecord(goal,
+                            DateTimeHandler.getCalendarLong(DateTimeHandler.NOW),
+                            DateTimeHandler.getCalendarLong(DateTimeHandler.NOW));
+                } else if (goal.getFrequency().equals(Constants.WEEKLY)) {
+                    liveData = mainViewModel.getRecord(goal,
+                            DateTimeHandler.getCalendarLong(DateTimeHandler.LAST_WEEK),
+                            DateTimeHandler.getCalendarLong(DateTimeHandler.NOW));
+                } else if (goal.getFrequency().equals(Constants.MONTHLY)) {
+                    liveData = mainViewModel.getRecord(goal,
+                            DateTimeHandler.getCalendarLong(DateTimeHandler.LAST_MONTH),
+                            DateTimeHandler.getCalendarLong(DateTimeHandler.NOW));
+                }
+
+                final MutableLiveData<Integer> res = new MutableLiveData<>();
+
+                assert liveData != null : "cannot obtain life data to display progress bar";
+                liveData.observe(MainActivity.this, new Observer<List<Record>>() {
+                    @Override
+                    public void onChanged(List<Record> records) {
+                        progress[0] = mainViewModel.getProgress(records);
+                        res.setValue(progress[0]);
+                    }
+                });
+
+                return res;
+            }
+
         });
+
 
 
         recyclerView.setAdapter(goalRViewAdapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
         //Interact with Database
-        goalViewModel = ViewModelProviders.of(this)
-                .get(GoalViewModel.class);
-        goalViewModel.getAllGoal().observe(this, new Observer<List<Goal>>() {
+        mainViewModel = ViewModelProviders.of(this)
+                .get(MainViewModel.class);
+        mainViewModel.getAllGoal().observe(this, new Observer<List<Goal>>() {
             @Override
             public void onChanged(List<Goal> goals) {
                 goalRViewAdapter.setGoalList(goals);
@@ -146,10 +179,10 @@ public class MainActivity extends AppCompatActivity
     public void onClickUpdateGoalDialog(UpdateGoalDialogFragment dialog, Goal toUpdate, boolean update) {
         String text;
         if (update) {
-            goalViewModel.update(toUpdate);
+            mainViewModel.update(toUpdate);
             text = "Update Saved!";
         } else {
-            goalViewModel.insert(toUpdate);
+            mainViewModel.insert(toUpdate);
             text = "New Habit Saved!";
         }
         dialog.dismiss();

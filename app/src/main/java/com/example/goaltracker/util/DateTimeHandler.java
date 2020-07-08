@@ -20,6 +20,7 @@ import java.util.List;
 
 import static java.time.temporal.ChronoUnit.DAYS;
 
+//TODO: Only view model know about DateTimeHandler
 public class DateTimeHandler {
 
     public static final String TAG = "DateTimeHandler";

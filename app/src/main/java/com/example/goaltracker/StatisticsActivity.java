@@ -14,9 +14,7 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.example.goaltracker.model.Goal;
-import com.example.goaltracker.model.GoalViewModel;
 import com.example.goaltracker.model.Record;
-import com.example.goaltracker.model.RecordViewModel;
 import com.example.goaltracker.model.StatisticsViewModel;
 import com.example.goaltracker.util.Constants;
 import com.example.goaltracker.util.DateTimeHandler;

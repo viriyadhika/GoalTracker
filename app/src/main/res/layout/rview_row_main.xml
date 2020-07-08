@@ -37,6 +37,19 @@
                 android:layout_toStartOf ="@id/rview_row_main_update"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
+            
+            <ProgressBar
+                style="@android:style/Widget.ProgressBar.Horizontal"
+                android:id="@+id/rview_row_main_progressbar"
+                android:layout_below="@id/rview_row_main_target"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:progressDrawable="@drawable/progress_bar" />
+
+            <TextView
+                android:id="@+id/rview_row_main_progresstext"
+                style="@style/recycler_view_content"
+                android:layout_below="@id/rview_row_main_progressbar" />
 
 
         </RelativeLayout>
