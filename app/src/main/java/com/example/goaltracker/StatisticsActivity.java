@@ -17,6 +17,7 @@ import com.example.goaltracker.model.Goal;
 import com.example.goaltracker.model.GoalViewModel;
 import com.example.goaltracker.model.Record;
 import com.example.goaltracker.model.RecordViewModel;
+import com.example.goaltracker.model.StatisticsViewModel;
 import com.example.goaltracker.util.Constants;
 import com.example.goaltracker.util.DateTimeHandler;
 import com.example.goaltracker.util.GoalBundleHandler;
@@ -38,8 +39,7 @@ public class StatisticsActivity extends AppCompatActivity {
 
     public static final int DATA_DISPLAYED_WEEKLY = 8;
 
-    GoalViewModel goalViewModel;
-    RecordViewModel recordViewModel;
+    StatisticsViewModel statisticsViewModel;
 
     Button viewButton;
 
@@ -50,35 +50,24 @@ public class StatisticsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_statistics);
 
-        //SetUpDatabase
-        goalViewModel = ViewModelProviders.of(this)
-                .get(GoalViewModel.class);
-        goalViewModel.getAllGoal().observe(this, new Observer<List<Goal>>() {
-            @Override
-            public void onChanged(List<Goal> goals) {
-
-            }
-        });
-
-        recordViewModel = ViewModelProviders.of(this)
-                .get(RecordViewModel.class);
-        recordViewModel.getAllRecord().observe(this, new Observer<List<Record>>() {
-            @Override
-            public void onChanged(List<Record> records) {
-            }
-        });
-
-
         //Get the extras passed from prev's activity
         Bundle extras = getIntent().getExtras();
         assert extras != null : TAG + ": No extras found from Intent";
         final Goal goal = GoalBundleHandler.getGoalFromBundle(extras);
-        getPastWeekRecords(goal.getId()).observe(this, new Observer<List<Record>>() {
-            @Override
-            public void onChanged(List<Record> records) {
-                displayChart(records);
-            }
-        });
+
+        statisticsViewModel = ViewModelProviders.of(this)
+                .get(StatisticsViewModel.class);
+        statisticsViewModel
+                .getRecord(
+                        goal,
+                        DateTimeHandler.getCalendarLong(DateTimeHandler.LAST_WEEK),
+                        DateTimeHandler.getCalendarLong(DateTimeHandler.NOW))
+                .observe(this, new Observer<List<Record>>() {
+                    @Override
+                    public void onChanged(List<Record> records) {
+                        displayChart(records);
+                    }
+                });
 
         //Set Up Title
         titleText = findViewById(R.id.activity_statistics_title);
@@ -153,12 +142,6 @@ public class StatisticsActivity extends AppCompatActivity {
         chart.getDescription().setEnabled(false);
         chart.invalidate();
 
-    }
-
-    private LiveData<List<Record>> getPastWeekRecords(int id) {
-        return recordViewModel.getRecord(id,
-                DateTimeHandler.getCalendarLong(DateTimeHandler.LAST_WEEK),
-                DateTimeHandler.getCalendarLong(DateTimeHandler.NOW));
     }
 
 }

@@ -10,7 +10,7 @@ import com.example.goaltracker.model.Goal;
 import com.example.goaltracker.model.Record;
 import com.example.goaltracker.util.Constants;
 
-@Database(entities = {Goal.class, Record.class}, version = 7)
+@Database(entities = {Goal.class, Record.class}, version = 8)
 public abstract class GoalRoomDatabase extends RoomDatabase {
     public abstract GoalDao goalDao();
     public abstract RecordDao recordDao();
@@ -22,6 +22,7 @@ public abstract class GoalRoomDatabase extends RoomDatabase {
             synchronized (GoalRoomDatabase.class) {
                 INSTANCE = Room.databaseBuilder(context.getApplicationContext(),
                         GoalRoomDatabase.class, Constants.DATABASE_NAME)
+                        .allowMainThreadQueries()
                         .fallbackToDestructiveMigration()
                         .build();
             }

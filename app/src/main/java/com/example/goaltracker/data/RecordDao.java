@@ -44,4 +44,7 @@ public interface RecordDao {
             + " ORDER BY " + Constants.REC_DATE_COLUMN_NAME + " DESC")
     LiveData<List<Record>> getRecord(int goalid);
 
+    @Query("SELECT * FROM " + Constants.REC_TABLE_NAME + " ORDER BY " + Constants.REC_DATE_COLUMN_NAME + " ASC")
+    List<Record> getAllRecordMainThread();
+
 }

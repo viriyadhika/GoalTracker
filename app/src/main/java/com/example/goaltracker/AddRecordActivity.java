@@ -21,6 +21,7 @@ import com.example.goaltracker.adapter.GoalRViewAdapter_AddRecord;
 import com.example.goaltracker.exception.DateAfterTodayException;
 import com.example.goaltracker.exception.DateFormatInvalidException;
 import com.example.goaltracker.exception.DuplicateRecordException;
+import com.example.goaltracker.model.AddRecordViewModel;
 import com.example.goaltracker.model.Goal;
 import com.example.goaltracker.model.GoalViewModel;
 import com.example.goaltracker.model.Record;
@@ -38,8 +39,7 @@ public class AddRecordActivity extends AppCompatActivity  {
 
     private static final String TAG = "Add Record Activity";
 
-    private GoalViewModel goalViewModel;
-    private RecordViewModel recordViewModel;
+    private AddRecordViewModel addRecordViewModel;
 
     private GoalRViewAdapter_AddRecord goalRViewAdapter;
     private RecyclerView recyclerView;
@@ -60,25 +60,7 @@ public class AddRecordActivity extends AppCompatActivity  {
         recyclerView.setAdapter(goalRViewAdapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
-        //Setup goal viewmodel
-        goalViewModel = ViewModelProviders.of(this)
-                .get(GoalViewModel.class);
-        goalViewModel.getAllGoal().observe(this, new Observer<List<Goal>>() {
-            @Override
-            public void onChanged(List<Goal> goals) {
-                goalRViewAdapter.setGoalList(goals);
-            }
-        });
 
-        //Setup RecordViewModel
-        recordViewModel = ViewModelProviders.of(this)
-                .get(RecordViewModel.class);
-        recordViewModel.getAllRecord().observe(this, new Observer<List<Record>>() {
-            @Override
-            public void onChanged(List<Record> records) {
-                //No UI change, so method is empty
-            }
-        });
 
         //Setup From Calendar Button
         final DatePickerDialog datePickerDialogFrom = new DatePickerDialog(this);
@@ -87,16 +69,8 @@ public class AddRecordActivity extends AppCompatActivity  {
             public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
                 //Plus one is because month start from 0
                 String datePicked = DateTimeHandler.getCalendarText(year, month + 1, dayOfMonth);
-
                 calendarEditText.setText(datePicked);
-                try {
-                    DateTimeHandler.verifyDate(datePicked);
-                } catch (DateAfterTodayException e) {
-                    showUserDateAfterTodayException(recyclerView);
-                } catch (DateFormatInvalidException e) {
-                    showUserDateFormatInvalidException(recyclerView);
-                }
-
+                addRecordViewModel.verifyDateFromCalendar(datePicked);
             }
         });
         calendarButton = findViewById(R.id.activity_add_record_calendar);
@@ -117,25 +91,11 @@ public class AddRecordActivity extends AppCompatActivity  {
                     EditText castedView = (EditText) v;
                     if (!castedView.getText().toString().isEmpty()) {
                         String date = castedView.getText().toString();
-
-                        try {
-                            DateTimeHandler.verifyDate(date);
-                            datePickerDialogFrom.updateDate(
-                                    DateTimeHandler.getYear(date),
-                                    DateTimeHandler.getMonth(date) - 1,
-                                    DateTimeHandler.getDate(date)
-                            );
-                        } catch (DateAfterTodayException e) {
-                            showUserDateAfterTodayException(recyclerView);
-                        } catch (DateFormatInvalidException e) {
-                            showUserDateFormatInvalidException(recyclerView);
-                        }
+                        addRecordViewModel.verifyDateFromEditText(date);
                     }
                 }
             }
         });
-
-
 
 
         //Setup Save Button
@@ -147,6 +107,54 @@ public class AddRecordActivity extends AppCompatActivity  {
             }
         });
 
+        //Setup view model
+        addRecordViewModel = ViewModelProviders.of(this)
+                .get(AddRecordViewModel.class);
+        addRecordViewModel.getAllGoals().observe(this, new Observer<List<Goal>>() {
+            @Override
+            public void onChanged(List<Goal> goals) {
+                goalRViewAdapter.setGoalList(goals);
+            }
+        });
+        addRecordViewModel.setAddRecordViewModelListener(new AddRecordViewModel.AddRecordViewModelListener() {
+            @Override
+            public void onDateFormatInvalid() {
+                calendarEditText.setError("Date format is invalid");
+                Snackbar.make(recyclerView, "Date format is invalid", Snackbar.LENGTH_SHORT)
+                        .show();
+            }
+
+            @Override
+            public void onDateAfterToday() {
+                calendarEditText.setError("Cannot pick a day after today");
+                Snackbar.make(recyclerView, "Cannot pick a day after today", Snackbar.LENGTH_SHORT)
+                        .show();
+            }
+
+            @Override
+            public void onDateVerifiedFromEditText(String date) {
+                datePickerDialogFrom.updateDate(
+                        DateTimeHandler.getYear(date),
+                        DateTimeHandler.getMonth(date) - 1,
+                        DateTimeHandler.getDate(date)
+                );
+            }
+
+            @Override
+            public void onSaveDuplicateFound() {
+                Snackbar.make(recyclerView, "Duplicate record found! No record is saved.", Snackbar.LENGTH_SHORT)
+                        .show();
+            }
+
+            @Override
+            public void onSaveSuccessful() {
+                Intent intent = getIntent();
+                intent.putExtra(Constants.MAIN_ADD_RECORD_MSGNAME, "Record saved Successfully");
+                setResult(RESULT_OK, intent);
+                finish();
+            }
+        });
+
 
     }
 
@@ -155,44 +163,9 @@ public class AddRecordActivity extends AppCompatActivity  {
      */
     private void saveRecord() {
 
-        double value;
-        Record record;
-        Goal goal;
-
         if (!goalRViewAdapter.getValues().isEmpty() && calendarEditText.getText() != null) {
-
             String dateString = calendarEditText.getText().toString().trim();
-            List<Record> records = new ArrayList<>();
-
-            try {
-                DateTimeHandler.verifyDate(dateString);
-                long date = DateTimeHandler.stringToLongDate(calendarEditText.getText().toString().trim());
-
-                for (Map.Entry<Goal, Double> entry : goalRViewAdapter.getValues().entrySet()) {
-                    goal = entry.getKey();
-                    value = entry.getValue();
-                    record = new Record(goal.getId(), date, value);
-                    recordViewModel.checkDuplicate(record);
-                    records.add(record);
-                }
-
-                for (Record validRecord : records) {
-                    recordViewModel.insert(validRecord);
-                }
-
-                Intent intent = getIntent();
-                intent.putExtra(Constants.MAIN_ADD_RECORD_MSGNAME, "Record saved Successfully");
-                setResult(RESULT_OK, intent);
-                finish();
-
-            } catch (DateAfterTodayException e) {
-                showUserDateAfterTodayException(recyclerView);
-            } catch (DateFormatInvalidException e) {
-                showUserDateFormatInvalidException(recyclerView);
-            } catch (DuplicateRecordException e) {
-                Snackbar.make(recyclerView, "Duplicate record found! No record is saved.", Snackbar.LENGTH_SHORT)
-                        .show();
-            }
+            addRecordViewModel.saveRecord(goalRViewAdapter.getValues(), dateString);
         } else {
             Snackbar.make(recyclerView, "Cannot have all empty value. No data to save!", Snackbar.LENGTH_SHORT)
                     .show();
@@ -209,15 +182,11 @@ public class AddRecordActivity extends AppCompatActivity  {
 
     //Below Code is for exception handling
     private void showUserDateAfterTodayException(View v) {
-        calendarEditText.setError("Cannot pick a day after today");
-        Snackbar.make(v, "Cannot pick a day after today", Snackbar.LENGTH_SHORT)
-                .show();
+
     }
 
     private void showUserDateFormatInvalidException(View v) {
-        calendarEditText.setError("Date format is invalid");
-        Snackbar.make(v, "Date format is invalid", Snackbar.LENGTH_SHORT)
-                .show();
+
     }
 
 

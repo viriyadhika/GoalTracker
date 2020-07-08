@@ -7,10 +7,12 @@ import androidx.lifecycle.LiveData;
 
 import com.example.goaltracker.data.GoalRoomDatabase;
 import com.example.goaltracker.data.RecordDao;
+import com.example.goaltracker.model.Goal;
 import com.example.goaltracker.model.Record;
 
 
 import java.util.List;
+import java.util.Map;
 
 public class RecordRepository {
 
@@ -29,8 +31,6 @@ public class RecordRepository {
 
     public LiveData<List<Record>> getRecord (int id) { return recordDao.getRecord(id); }
 
-
-
     public void insert(Record record) {
         new RecordRepository.insertAsyncTask(recordDao).execute(record);
     }
@@ -46,6 +46,8 @@ public class RecordRepository {
             return null;
         }
     }
+
+    public List<Record> getAllRecordMainThread() {return recordDao.getAllRecordMainThread();}
 
     public void deleteAll() {new RecordRepository.deleteAllAsyncTask(recordDao).execute();}
 
