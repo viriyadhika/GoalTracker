@@ -14,6 +14,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
 
 import com.example.goaltracker.adapter.GoalRViewAdapter_Main;
 import com.example.goaltracker.model.Goal;
@@ -38,8 +39,8 @@ public class MainActivity extends AppCompatActivity
     private RecyclerView recyclerView;
 
     //Three main buttons
-    private Button addGoal;
-    private Button addRecord;
+    private ImageButton addGoal;
+    private ImageButton addRecord;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -68,39 +69,6 @@ public class MainActivity extends AppCompatActivity
             @Override
             public void onDeleteClick(Goal goal) {
                 mainViewModel.delete(goal);
-            }
-
-            @Override
-            public LiveData<Integer> getProgressBar(final Goal goal) {
-                final int[] progress = new int[1];
-                LiveData<List<Record>> liveData = null;
-
-                if (goal.getFrequency().equals(Constants.DAILY)) {
-                    liveData = mainViewModel.getRecord(goal,
-                            DateTimeHandler.getCalendarLong(DateTimeHandler.NOW),
-                            DateTimeHandler.getCalendarLong(DateTimeHandler.NOW));
-                } else if (goal.getFrequency().equals(Constants.WEEKLY)) {
-                    liveData = mainViewModel.getRecord(goal,
-                            DateTimeHandler.getCalendarLong(DateTimeHandler.LAST_WEEK),
-                            DateTimeHandler.getCalendarLong(DateTimeHandler.NOW));
-                } else if (goal.getFrequency().equals(Constants.MONTHLY)) {
-                    liveData = mainViewModel.getRecord(goal,
-                            DateTimeHandler.getCalendarLong(DateTimeHandler.LAST_MONTH),
-                            DateTimeHandler.getCalendarLong(DateTimeHandler.NOW));
-                }
-
-                final MutableLiveData<Integer> res = new MutableLiveData<>();
-
-                assert liveData != null : "cannot obtain life data to display progress bar";
-                liveData.observe(MainActivity.this, new Observer<List<Record>>() {
-                    @Override
-                    public void onChanged(List<Record> records) {
-                        progress[0] = mainViewModel.getProgress(records);
-                        res.setValue(progress[0]);
-                    }
-                });
-
-                return res;
             }
 
         });

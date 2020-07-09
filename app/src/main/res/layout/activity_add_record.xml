@@ -56,15 +56,13 @@
         android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="@dimen/activity_add_record_bottom_bar"
-        android:gravity="right"
-        android:weightSum="3">
+        android:gravity="end" >
 
         <Button
             android:id="@+id/activity_add_record_saveButton"
+            android:background="@null"
             android:text="@string/save_button"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1" />
+            style="@style/save_button" />
 
     </LinearLayout>
 

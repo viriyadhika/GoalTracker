@@ -131,7 +131,6 @@ public class GoalRViewAdapter_Main extends GoalRViewAdapter {
         void onGoalClick(Goal goal);
         void onEditClick(Goal goal);
         void onDeleteClick(Goal goal);
-        LiveData<Integer> getProgressBar(Goal goal);
     }
 
     public void setGoalRViewAdapterListener (GoalRViewAdapterListener goalViewAdapterListener) {
